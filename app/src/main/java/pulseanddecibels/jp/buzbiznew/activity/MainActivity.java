@@ -5,30 +5,45 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import pulseanddecibels.jp.buzbiznew.R;
-import pulseanddecibels.jp.buzbiznew.adapter.HistoryFragmentPagerAdapter;
+import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+    private int[] imageResId = {
+            R.drawable.selector_main_contacts,
+            R.drawable.selector_main_history
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton dialerButton = (FloatingActionButton) findViewById(R.id.button_dialer);
+        assert dialerButton != null;
+        dialerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO : Bring up dialer dialog
+            }
+        });
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        assert viewPager != null;
-        viewPager.setAdapter(new HistoryFragmentPagerAdapter(getSupportFragmentManager(),
-                MainActivity.this));
+        ViewPager bottomTabViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        assert bottomTabViewPager != null;
+        bottomTabViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), this));
 
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.app_bar_tabs);
-        assert tabLayout != null;
-        tabLayout.setupWithViewPager(viewPager);
+        TabLayout bottomTabLayout = (TabLayout) findViewById(R.id.bottom_bar_tabs);
+        assert bottomTabLayout != null;
+        bottomTabLayout.setupWithViewPager(bottomTabViewPager);
+
+        for (int i = 0; i < bottomTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = bottomTabLayout.getTabAt(i);
+            assert tab != null;
+            tab.setIcon(imageResId[i]);
+        }
     }
+
 }

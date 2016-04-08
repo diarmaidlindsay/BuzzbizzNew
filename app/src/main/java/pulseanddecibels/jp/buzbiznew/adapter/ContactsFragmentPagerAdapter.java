@@ -5,20 +5,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import pulseanddecibels.jp.buzbiznew.fragment.HistoryFragment;
+import pulseanddecibels.jp.buzbiznew.fragment.ContactsFragment;
 
 /**
- * Created by Diarmaid Lindsay on 2016/04/06.
+ * Created by Diarmaid Lindsay on 2016/04/07.
  * Copyright Pulse and Decibels 2016
- *
- * https://guides.codepath.com/android/google-play-style-tabs-using-tablayout
  */
-public class HistoryFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
+public class ContactsFragmentPagerAdapter extends FragmentPagerAdapter {
+    final int PAGE_COUNT = 2;
 
     private Context context;
 
-    public HistoryFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public ContactsFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -30,7 +28,6 @@ public class HistoryFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return HistoryFragment.newInstance(position + 1);
+        return ContactsFragment.newInstance(position + 1);
     }
-
 }
