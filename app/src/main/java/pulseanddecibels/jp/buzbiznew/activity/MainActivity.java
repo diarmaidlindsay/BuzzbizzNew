@@ -11,6 +11,10 @@ import android.view.View;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
 
+/**
+ * Created by Diarmaid Lindsay on 2016/04/07.
+ * Copyright Pulse and Decibels 2016
+ */
 public class MainActivity extends AppCompatActivity {
 
     //View Pager tab indexes
@@ -89,20 +93,25 @@ public class MainActivity extends AppCompatActivity {
     public void setAppBarTabs(ViewPager topTabViewPager) {
         // Give the TabLayout the ViewPager
         topTabLayout.setupWithViewPager(topTabViewPager);
-
-        switch (getCurrentSelectedTab()) {
-            case CONTACTS_IDX :
-
-                break;
-            case HISTORY_IDX :
-                for (int i = 0; i < topTabLayout.getTabCount(); i++) {
-                    TabLayout.Tab tab = topTabLayout.getTabAt(i);
-                    assert tab != null;
-                    tab.setIcon(TOP_TAB_ICONS[i]);
-                }
-                break;
+        for (int i = 0; i < topTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = topTabLayout.getTabAt(i);
+            assert tab != null;
+            //populate tabs with icons or text
+            switch (getCurrentSelectedTab()) {
+                case CONTACTS_IDX :
+                    //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
+                    if(i < TOP_TAB_LABELS.length) {
+                        tab.setText(TOP_TAB_LABELS[i]);
+                    }
+                    break;
+                case HISTORY_IDX :
+                    //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
+                    if(i < TOP_TAB_ICONS.length) {
+                        tab.setIcon(TOP_TAB_ICONS[i]);
+                    }
+                    break;
+            }
         }
-
     }
 
     @Override

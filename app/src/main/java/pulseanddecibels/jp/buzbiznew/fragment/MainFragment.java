@@ -66,6 +66,11 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    /**
+     * This event is called when a Fragment becomes visible.
+     * Use this event to switch out the top tab view pager depending on
+     * which Main Fragment is selected.
+     */
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(topTabViewPager != null) {
