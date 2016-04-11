@@ -10,6 +10,8 @@ import pulseanddecibels.jp.buzbiznew.fragment.MainFragment;
 /**
  * Created by Diarmaid Lindsay on 2016/04/07.
  * Copyright Pulse and Decibels 2016
+ *
+ * The Pager Adapter for the bottom tabs
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
@@ -28,7 +30,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainFragment.newInstance(context, position + 1);
+        return MainFragment.newInstance(context, position);
     }
-
 }

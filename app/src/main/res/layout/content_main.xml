@@ -9,7 +9,7 @@
     tools:context=".activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <android.support.v4.view.ViewPager
+    <pulseanddecibels.jp.buzbiznew.widget.NonSwipeableViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
