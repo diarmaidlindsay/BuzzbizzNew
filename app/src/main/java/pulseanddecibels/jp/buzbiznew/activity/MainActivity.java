@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import hugo.weaving.DebugLog;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager bottomTabViewPager;
 
     @Override
+    @DebugLog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

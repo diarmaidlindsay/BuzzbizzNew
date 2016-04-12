@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pulseanddecibels.jp.buzbiznew.R;
+import pulseanddecibels.jp.buzbiznew.adapter.ContactsAdapter;
+import pulseanddecibels.jp.buzbiznew.widget.IndexableListView;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/06.
@@ -35,6 +37,11 @@ public class ContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+
+        IndexableListView contactsList = (IndexableListView) view.findViewById(R.id.list_contacts);
+        contactsList.setFastScrollEnabled(true);
+        contactsList.setAdapter(new ContactsAdapter(getActivity()));
+
         return view;
     }
 }
