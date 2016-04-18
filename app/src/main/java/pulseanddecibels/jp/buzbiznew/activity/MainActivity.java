@@ -6,11 +6,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
-import hugo.weaving.DebugLog;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
+import pulseanddecibels.jp.buzbiznew.model.TabBottom;
+import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
+import pulseanddecibels.jp.buzbiznew.model.TabTopHistory;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/07.
@@ -18,9 +21,6 @@ import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
  */
 public class MainActivity extends AppCompatActivity {
 
-    //View Pager tab indexes
-    public static final int CONTACTS_IDX = 0;
-    public static final int HISTORY_IDX = 1;
     //Save/Restore instance state keys
     private static final String BOTTOM_TAB_POSITION = "BOTTOM_POS";
     private final String LOG_TAG = getClass().getSimpleName();
@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
             "内線"
     };
 
-    private TabLayout topTabLayout;
-    private ViewPager bottomTabViewPager;
+    private TabLayout mTopTabLayout;
+    private ViewPager mTopTabViewPager;
+    private ViewPager mBottomTabViewPager;
 
     @Override
-    @DebugLog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         assert toolbar != null;
         setSupportActionBar(toolbar);
 
-        topTabLayout = (TabLayout) findViewById(R.id.app_bar_tabs);
+        mTopTabLayout = (TabLayout) findViewById(R.id.app_bar_tabs);
 
         FloatingActionButton dialerButton = (FloatingActionButton) findViewById(R.id.button_dialer);
         assert dialerButton != null;
@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomTabViewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        assert bottomTabViewPager != null;
-        bottomTabViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), this));
+        mBottomTabViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        assert mBottomTabViewPager != null;
+        mBottomTabViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), this));
 
         TabLayout bottomTabLayout = (TabLayout) findViewById(R.id.bottom_bar_tabs);
         assert bottomTabLayout != null;
-        bottomTabLayout.setupWithViewPager(bottomTabViewPager);
+        bottomTabLayout.setupWithViewPager(mBottomTabViewPager);
 
         for (int i = 0; i < bottomTabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = bottomTabLayout.getTabAt(i);
@@ -82,11 +82,28 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Is Contacts or History tab selected?
      */
-    public int getCurrentSelectedTab() {
-        if(bottomTabViewPager != null) {
-            return bottomTabViewPager.getCurrentItem();
+    public TabBottom getCurrentSelectedBottomTab() {
+        if(mBottomTabViewPager != null) {
+            return TabBottom.getTab(mBottomTabViewPager.getCurrentItem());
         }
-        return -1;
+        Log.e(LOG_TAG, "mBottomTabViewPager was null, returning default item");
+        return TabBottom.HISTORY;
+    }
+
+    public TabTopContact getCurrentSelectedTopTabContact() {
+        if(mTopTabViewPager != null) {
+            return TabTopContact.getTab(mTopTabViewPager.getCurrentItem());
+        }
+        Log.e(LOG_TAG, "mTopTabViewPager was null, returning default item");
+        return TabTopContact.OUTSIDE;
+    }
+
+    public TabTopHistory getCurrentSelectedTopTabHistory() {
+        if(mTopTabViewPager != null) {
+            return TabTopHistory.getTab(mTopTabViewPager.getCurrentItem());
+        }
+        Log.e(LOG_TAG, "mTopTabViewPager was null, returning default item");
+        return TabTopHistory.CALL_BOTH;
     }
 
     /**
@@ -94,19 +111,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setAppBarTabs(ViewPager topTabViewPager) {
         // Give the TabLayout the ViewPager
-        topTabLayout.setupWithViewPager(topTabViewPager);
-        for (int i = 0; i < topTabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = topTabLayout.getTabAt(i);
+        mTopTabViewPager = topTabViewPager;
+        mTopTabLayout.setupWithViewPager(mTopTabViewPager);
+        for (int i = 0; i < mTopTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = mTopTabLayout.getTabAt(i);
             assert tab != null;
             //populate tabs with icons or text
-            switch (getCurrentSelectedTab()) {
-                case CONTACTS_IDX :
+            switch (getCurrentSelectedBottomTab()) {
+                case CONTACTS:
                     //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
                     if(i < TOP_TAB_LABELS.length) {
                         tab.setText(TOP_TAB_LABELS[i]);
                     }
                     break;
-                case HISTORY_IDX :
+                case HISTORY:
                     //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
                     if(i < TOP_TAB_ICONS.length) {
                         tab.setIcon(TOP_TAB_ICONS[i]);
@@ -119,12 +137,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(BOTTOM_TAB_POSITION, getCurrentSelectedTab());
+        outState.putInt(BOTTOM_TAB_POSITION, getCurrentSelectedBottomTab().getIndex());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        bottomTabViewPager.setCurrentItem(savedInstanceState.getInt(BOTTOM_TAB_POSITION));
+        mBottomTabViewPager.setCurrentItem(savedInstanceState.getInt(BOTTOM_TAB_POSITION));
     }
 }

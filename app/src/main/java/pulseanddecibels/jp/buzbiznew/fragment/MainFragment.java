@@ -13,6 +13,7 @@ import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.adapter.ContactsFragmentPagerAdapter;
 import pulseanddecibels.jp.buzbiznew.adapter.HistoryFragmentPagerAdapter;
+import pulseanddecibels.jp.buzbiznew.model.TabBottom;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/07.
@@ -53,12 +54,13 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         topTabViewPager = (ViewPager) view.findViewById(R.id.fragment_viewpager);
-        topTabViewPager.setAdapter(mPage == MainActivity.CONTACTS_IDX ?
+        topTabViewPager.setAdapter(mPage == TabBottom.CONTACTS.getIndex() ?
                 new ContactsFragmentPagerAdapter(getChildFragmentManager(), getActivity()) :
                 new HistoryFragmentPagerAdapter(getChildFragmentManager(), getActivity()));
 
-        //update the main activity's view pager
-        if(mPage == ((MainActivity)getActivity()).getCurrentSelectedTab()) {
+        //if this page is the current selected tab
+        if(mPage == ((MainActivity)getActivity()).getCurrentSelectedBottomTab().getIndex()) {
+            //update the main activity's view pager with this tab's view pager
             ((MainActivity)getActivity()).setAppBarTabs(topTabViewPager);
         }
 
@@ -73,7 +75,7 @@ public class MainFragment extends Fragment {
      */
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(topTabViewPager != null) {
+        if(topTabViewPager != null && isVisibleToUser) {
             //update the main activity's view pager
             ((MainActivity)getActivity()).setAppBarTabs(topTabViewPager);
         }

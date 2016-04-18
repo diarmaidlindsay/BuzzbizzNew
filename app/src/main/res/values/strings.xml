@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Buzbiz</string>
+    <string name="line_inside">内線</string>
+    <string name="line_outside">外線</string>
 </resources>

@@ -6,6 +6,8 @@
     <pulseanddecibels.jp.buzbiznew.widget.IndexableListView
         android:id="@+id/list_contacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:animationCache="false"
+        android:scrollingCache="false"/>
 
 </LinearLayout>
