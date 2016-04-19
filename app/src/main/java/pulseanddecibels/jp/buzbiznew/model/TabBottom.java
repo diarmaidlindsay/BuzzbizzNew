@@ -2,8 +2,6 @@ package pulseanddecibels.jp.buzbiznew.model;
 
 import android.util.Log;
 
-import hugo.weaving.DebugLog;
-
 /**
  * Created by Diarmaid Lindsay on 2016/04/18.
  * Copyright Pulse and Decibels 2016
@@ -20,7 +18,6 @@ public enum TabBottom {
         this.index = index;
     }
 
-    @DebugLog
     public static TabBottom getTab(int index) {
         for(TabBottom tabBottom : TabBottom.values()) {
             if(tabBottom.index == index) {

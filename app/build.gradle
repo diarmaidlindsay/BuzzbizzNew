@@ -12,7 +12,7 @@ buildscript {
 
 apply plugin: 'com.android.application'
 //Debugging plugin "Hugo" (@DebugLog)
-apply plugin: 'com.jakewharton.hugo'
+//apply plugin: 'com.jakewharton.hugo' //crashes on Android 4.4 if commented in
 
 android {
     compileSdkVersion 23
