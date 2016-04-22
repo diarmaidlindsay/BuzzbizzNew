@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Locale;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
+import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/11.
@@ -29,6 +31,7 @@ import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
  */
 public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
     private final String LOG_TAG = getClass().getSimpleName();
+
     List<ContactListItem> contacts;
     //For fast scroller
     HashMap<String, Integer> mapIndex = new LinkedHashMap<>();
@@ -45,9 +48,38 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
         contacts = SampleDataUtil.getSampleContacts();
         Collections.sort(contacts, new SortIgnoreCase());
 
+        initFastScroller();
+    }
+
+    private void initFastScroller() {
         //for fast scroller
         for (int x = 0; x < contacts.size(); x++) {
-            String name = contacts.get(x).getName();
+            String name = contacts.get(x).getNameKana();
+            char ch = name.charAt(0);
+            String first;
+
+            if(Util.isKana(ch))
+            {
+                first = Util.lookupKana(ch);
+            } else {
+                first = name.substring(0, 1).toUpperCase(Locale.JAPAN);
+            }
+
+            // HashMap will prevent duplicates
+            mapIndex.put(first, x);
+        }
+
+        List<String> sectionList = new ArrayList<>();
+        sectionList.addAll(mapIndex.keySet());
+        //sort sections
+        Collections.sort(sectionList);
+        sections = sectionList.toArray(new String[sectionList.size()]);
+    }
+
+    private void initFastScrollerRomaji() {
+        //for fast scroller
+        for (int x = 0; x < contacts.size(); x++) {
+            String name = contacts.get(x).getNameKana();
             String ch = name.substring(0, 1);
             ch = ch.toUpperCase(Locale.US);
 
@@ -89,7 +121,7 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
 
         ContactListItem contactListItem = (ContactListItem) getItem(position);
 
-        viewHolder.name.setText(contactListItem.getName());
+        viewHolder.name.setText(contactListItem.getNameKanji());
         viewHolder.icon.setImageResource(android.R.drawable.btn_star);
 
         return convertView;
@@ -117,7 +149,7 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
 
     private class SortIgnoreCase implements Comparator<ContactListItem> {
         public int compare(ContactListItem c1, ContactListItem c2) {
-            return c1.getName().toLowerCase().compareTo(c2.getName().toLowerCase());
+            return c1.getNameKanji().toLowerCase().compareTo(c2.getNameKanji().toLowerCase());
         }
     }
 }

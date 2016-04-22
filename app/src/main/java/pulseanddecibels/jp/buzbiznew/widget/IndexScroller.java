@@ -196,7 +196,8 @@ public class IndexScroller {
         mIndexbarRect = new RectF(w - mIndexbarMargin - mIndexbarWidth
                 , mIndexbarMargin
                 , w - mIndexbarMargin
-                , h - mIndexbarMargin);
+                //Diarmaid - modify height of fast scroller so that it's not hidden behind lower tabs
+                , (h - mIndexbarMargin) * 0.9f);
     }
 
     public void show() {

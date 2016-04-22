@@ -6,18 +6,24 @@ package pulseanddecibels.jp.buzbiznew.model;
  */
 public class ContactListItem {
     int telNum;
-    String name;
+    String nameKana;
+    String nameKanji;
 
-    public ContactListItem(int telNum, String name) {
+    public ContactListItem(int telNum, String nameKana, String nameKanji) {
         this.telNum = telNum;
-        this.name = name;
+        this.nameKana = nameKana;
+        this.nameKanji = nameKanji;
     }
 
     public int getTelNum() {
         return telNum;
     }
 
-    public String getName() {
-        return name;
+    public String getNameKanji() {
+        return nameKanji;
+    }
+
+    public String getNameKana() {
+        return nameKana;
     }
 }

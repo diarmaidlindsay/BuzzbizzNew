@@ -91,7 +91,7 @@ public class HistoryAdapter extends BaseAdapter {
         HistoryListItem historyListItem = (HistoryListItem) getItem(position);
         viewHolder.icon.setImageResource(historyListItem.getDirectionImage());
         //lookup name from phone number
-        viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getPhoneNumber()).getName());
+        viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getPhoneNumber()).getNameKanji());
         viewHolder.time.setText(historyListItem.getTime());
         viewHolder.lineType.setText(historyListItem.getLineType().toString());
 
