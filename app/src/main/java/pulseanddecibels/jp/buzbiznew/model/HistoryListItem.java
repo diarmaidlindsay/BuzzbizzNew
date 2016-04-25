@@ -7,18 +7,18 @@ import pulseanddecibels.jp.buzbiznew.R;
  * Copyright Pulse and Decibels 2016
  */
 public class HistoryListItem {
-    private int phoneNumber;
+    private int telNumber;
     private String time;
     private CallDirection direction;
 
-    public HistoryListItem(int phoneNumber, String time, CallDirection direction) {
-        this.phoneNumber = phoneNumber;
+    public HistoryListItem(int telNumber, String time, CallDirection direction) {
+        this.telNumber = telNumber;
         this.time = time;
         this.direction = direction;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public int getTelNumber() {
+        return telNumber;
     }
 
     public String getTime() {
@@ -45,7 +45,7 @@ public class HistoryListItem {
      * @return
      */
     public TabTopContact getLineType() {
-        if(phoneNumber < 1000) {
+        if(telNumber < 1000) {
             return TabTopContact.INSIDE;
         }
         return TabTopContact.OUTSIDE;

@@ -18,6 +18,7 @@ public class ContactsFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
+    private ContactsAdapter adapter;
 
     public static ContactsFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -40,8 +41,23 @@ public class ContactsFragment extends Fragment {
 
         IndexableListView contactsList = (IndexableListView) view.findViewById(R.id.list_contacts);
         contactsList.setFastScrollEnabled(true);
-        contactsList.setAdapter(new ContactsAdapter(getActivity()));
+        adapter = new ContactsAdapter(getActivity());
+        contactsList.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    /**
+     * This event is called when a Fragment becomes visible.
+     * Use this event to switch out the top tab view pager depending on
+     * which Main Fragment is selected.
+     */
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(adapter != null && isVisibleToUser) {
+            //refresh history list after tab change
+            adapter.notifyDataSetInvalidated();
+        }
     }
 }

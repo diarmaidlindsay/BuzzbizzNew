@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.Locale;
 
 import pulseanddecibels.jp.buzbiznew.R;
+import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
+import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
 import pulseanddecibels.jp.buzbiznew.util.Util;
 
@@ -32,11 +34,14 @@ import pulseanddecibels.jp.buzbiznew.util.Util;
 public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
     private final String LOG_TAG = getClass().getSimpleName();
 
-    List<ContactListItem> contacts;
+    List<ContactListItem> contactsInside;
+    List<ContactListItem> contactsOutside;
     //For fast scroller
-    HashMap<String, Integer> mapIndex = new LinkedHashMap<>();
+    HashMap<String, Integer> mapIndexInside = new LinkedHashMap<>();
+    HashMap<String, Integer> mapIndexOutside = new LinkedHashMap<>();
     //For fast scroller
-    String[] sections;
+    String[] sectionsInside;
+    String[] sectionsOutside;
     //Sample Data
     private Context mContext;
     private LayoutInflater layoutInflater;
@@ -45,14 +50,29 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
     public ContactsAdapter(Context context) {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(context);
-        contacts = SampleDataUtil.getSampleContacts();
-        Collections.sort(contacts, new SortIgnoreCase());
+        contactsInside = SampleDataUtil.getSampleContacts(TabTopContact.INSIDE);
+        contactsOutside = SampleDataUtil.getSampleContacts(TabTopContact.OUTSIDE);
+        Collections.sort(contactsInside, new SortIgnoreCase());
+        Collections.sort(contactsOutside, new SortIgnoreCase());
 
-        initFastScroller();
+        initFastScroller(TabTopContact.INSIDE);
+        initFastScroller(TabTopContact.OUTSIDE);
     }
 
-    private void initFastScroller() {
+    private void initFastScroller(TabTopContact tab) {
+        List<ContactListItem> contacts = null;
+        HashMap<String, Integer> mapIndex = null;
         //for fast scroller
+        switch (tab) {
+            case OUTSIDE:
+                contacts = contactsOutside;
+                mapIndex = mapIndexOutside;
+                break;
+            case INSIDE:
+                contacts = contactsInside;
+                mapIndex = mapIndexInside;
+                break;
+        }
         for (int x = 0; x < contacts.size(); x++) {
             String name = contacts.get(x).getNameKana();
             char ch = name.charAt(0);
@@ -73,32 +93,37 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
         sectionList.addAll(mapIndex.keySet());
         //sort sections
         Collections.sort(sectionList);
-        sections = sectionList.toArray(new String[sectionList.size()]);
-    }
-
-    private void initFastScrollerRomaji() {
-        //for fast scroller
-        for (int x = 0; x < contacts.size(); x++) {
-            String name = contacts.get(x).getNameKana();
-            String ch = name.substring(0, 1);
-            ch = ch.toUpperCase(Locale.US);
-
-            // HashMap will prevent duplicates
-            mapIndex.put(ch, x);
+        switch (tab) {
+            case OUTSIDE:
+                sectionsOutside = sectionList.toArray(new String[sectionList.size()]);
+                break;
+            case INSIDE:
+                sectionsInside = sectionList.toArray(new String[sectionList.size()]);
+                break;
         }
-
-        sections = mapIndex.keySet().toArray(new String[mapIndex.keySet().size()]);
     }
 
     @Override
     public int getCount() {
-        return contacts.size();
+        switch (((MainActivity)mContext).getCurrentSelectedTopTabContact()) {
+            case OUTSIDE:
+                return contactsOutside.size();
+            case INSIDE:
+                return contactsInside.size();
+        }
+        return -1;
     }
 
     @Override
     public Object getItem(int position) {
+        switch (((MainActivity)mContext).getCurrentSelectedTopTabContact()) {
+            case OUTSIDE:
+                return contactsOutside.get(position);
+            case INSIDE:
+                return contactsInside.get(position);
+        }
 
-        return contacts.get(position);
+        return null;
     }
 
     @Override
@@ -129,12 +154,27 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
 
     @Override
     public Object[] getSections() {
-        return sections;
+        switch (((MainActivity)mContext).getCurrentSelectedTopTabContact()) {
+            case OUTSIDE:
+                return sectionsOutside;
+            case INSIDE:
+                return sectionsInside;
+        }
+
+        return null;
     }
 
     @Override
     public int getPositionForSection(int sectionIndex) {
-        return mapIndex.get(sections[sectionIndex]);
+        switch (((MainActivity)mContext).getCurrentSelectedTopTabContact()) {
+            case OUTSIDE:
+                return mapIndexOutside.get(sectionsOutside[sectionIndex]);
+            case INSIDE:
+
+                return mapIndexInside.get(sectionsInside[sectionIndex]);
+        }
+
+        return -1;
     }
 
     @Override

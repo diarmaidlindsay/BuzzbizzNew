@@ -11,6 +11,7 @@ import pulseanddecibels.jp.buzbiznew.BuildConfig;
 import pulseanddecibels.jp.buzbiznew.model.CallDirection;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
+import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/13.
@@ -68,7 +69,19 @@ public class SampleDataUtil {
     private static List<HistoryListItem> sampleHistory;
     private static List<Integer> sampleNumbers;
 
-    public static List<ContactListItem> getSampleContacts() {
+    public static List<ContactListItem> getSampleContacts(TabTopContact contactType) {
+        List<ContactListItem> items = new ArrayList<>();
+
+        for(ContactListItem item : getSampleContacts()) {
+            if(item.getLineType() == contactType) {
+                items.add(item);
+            }
+        }
+
+        return items;
+    }
+
+    private static List<ContactListItem> getSampleContacts() {
         if(sampleContacts != null) {
             return new ArrayList<>(sampleContacts.values());
         }
@@ -132,7 +145,7 @@ public class SampleDataUtil {
 
         for(int i = 0; i < amount; i++) {
             CallDirection direction = Util.randInt(0, 1) == 0 ? CallDirection.IN : CallDirection.OUT;
-            HistoryListItem entry = new HistoryListItem(sampleContacts.get(i).getTelNum(), getSampleTime(), direction);
+            HistoryListItem entry = new HistoryListItem(sampleContacts.get(i).getTelNumber(), getSampleTime(), direction);
             sampleHistory.add(entry);
         }
 
