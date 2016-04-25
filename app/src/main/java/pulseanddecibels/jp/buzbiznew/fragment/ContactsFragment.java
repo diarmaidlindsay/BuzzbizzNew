@@ -56,7 +56,7 @@ public class ContactsFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(adapter != null && isVisibleToUser) {
-            //refresh history list after tab change
+            //refresh contacts list after tab change
             adapter.notifyDataSetInvalidated();
         }
     }
