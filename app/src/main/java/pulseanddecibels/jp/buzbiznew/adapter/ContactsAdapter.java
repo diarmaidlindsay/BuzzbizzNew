@@ -1,6 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pulseanddecibels.jp.buzbiznew.R;
+import pulseanddecibels.jp.buzbiznew.activity.ContactDetailsActivity;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
@@ -144,10 +146,19 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
 
-        ContactListItem contactListItem = (ContactListItem) getItem(position);
+        final ContactListItem contactListItem = (ContactListItem) getItem(position);
 
         viewHolder.name.setText(contactListItem.getNameKanji());
         viewHolder.icon.setImageResource(android.R.drawable.btn_star);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ContactDetailsActivity.class);
+                intent.putExtra("telNumber", contactListItem.getTelNumber());
+                mContext.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
@@ -168,10 +179,17 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
     public int getPositionForSection(int sectionIndex) {
         switch (((MainActivity)mContext).getCurrentSelectedTopTabContact()) {
             case OUTSIDE:
-                return mapIndexOutside.get(sectionsOutside[sectionIndex]);
+                if(sectionIndex <= sectionsOutside.length - 1) {
+                    return mapIndexOutside.get(sectionsOutside[sectionIndex]);
+                } else {
+                    return sectionsOutside.length - 1;
+                }
             case INSIDE:
-
-                return mapIndexInside.get(sectionsInside[sectionIndex]);
+                if(sectionIndex <= sectionsInside.length - 1) {
+                    return mapIndexInside.get(sectionsInside[sectionIndex]);
+                } else {
+                    return sectionsInside.length - 1;
+                }
         }
 
         return -1;

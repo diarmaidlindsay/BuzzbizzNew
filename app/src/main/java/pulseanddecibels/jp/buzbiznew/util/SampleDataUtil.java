@@ -9,6 +9,8 @@ import java.util.Set;
 
 import pulseanddecibels.jp.buzbiznew.BuildConfig;
 import pulseanddecibels.jp.buzbiznew.model.CallDirection;
+import pulseanddecibels.jp.buzbiznew.model.CallState;
+import pulseanddecibels.jp.buzbiznew.model.ContactDetailsListItem;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
 import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
@@ -136,7 +138,13 @@ public class SampleDataUtil {
     public static String getSampleTime() {
         int hour = Util.randInt(0, 23);
         int minute = Util.randInt(0, 59);
-        return String.format(Locale.JAPAN, "%s:%s", hour < 9 ? "0"+hour : hour, minute < 9 ? "0" + minute : minute);
+        return String.format(Locale.JAPAN, "%s:%s", hour < 10 ? "0"+hour : hour, minute < 10 ? "0" + minute : minute);
+    }
+
+    public static String getSampleDuration() {
+        int min = Util.randInt(0, 59);
+        int sec = Util.randInt(0, 59);
+        return String.format(Locale.JAPAN, "%sm%ss", min < 10 ? "0"+min : min, sec < 10 ? "0" + sec : sec);
     }
 
     public static List<HistoryListItem> getSampleHistoryItems(int amount) {
@@ -169,5 +177,20 @@ public class SampleDataUtil {
         }
 
         return items;
+    }
+
+    public static List<ContactDetailsListItem> getSampleContactDetails(int telNum) {
+        List<ContactDetailsListItem> contactDetailsList = new ArrayList<>();
+        //too much of a pain in the ass to make random dates and sort them
+        final String[] dates = new String[] {"2016.04.22", "2016.04.19", "2016.04.18", "2016.04.16", "2016.04.10"};
+        for(String date : dates) {
+            contactDetailsList.add(new ContactDetailsListItem(date, null, null, null));
+            for(int i = 0; i < Util.randInt(1, 5); i++) {
+                contactDetailsList.add(
+                        new ContactDetailsListItem(
+                                null, getSampleTime(), CallState.values()[Util.randInt(0, CallState.values().length-1)], getSampleDuration()));
+            }
+        }
+        return contactDetailsList;
     }
 }

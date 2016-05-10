@@ -3,11 +3,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <pulseanddecibels.jp.buzbiznew.widget.IndexableListView
-        android:id="@+id/list_contacts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animationCache="false"
-        android:scrollbars="vertical"/>
-
+    <TextView
+        android:id="@+id/contact_details_date"
+        style="@style/WhiteText.Small"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:text="2016.04.20"/>
 </LinearLayout>
