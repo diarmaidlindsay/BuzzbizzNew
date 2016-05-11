@@ -3,6 +3,8 @@ package pulseanddecibels.jp.buzbiznew.activity;
 import android.app.Application;
 import android.content.Context;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
  * Copyright Pulse and Decibels 2016
@@ -19,5 +21,6 @@ public class BuzbizApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        JodaTimeAndroid.init(this);
     }
 }

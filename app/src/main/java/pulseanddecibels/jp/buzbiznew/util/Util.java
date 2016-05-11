@@ -1,5 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.util;
 
+import org.joda.time.DateTimeZone;
+
 import java.util.Random;
 
 /**
@@ -7,6 +9,8 @@ import java.util.Random;
  * Copyright Pulse and Decibels 2016
  */
 public class Util {
+    public static final DateTimeZone JAPAN_TIME_ZONE = DateTimeZone.forOffsetHours(9);
+
     public static int randInt(int min, int max) {
 
         // Usually this can be a field rather than a method variable

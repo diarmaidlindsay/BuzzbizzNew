@@ -1,12 +1,12 @@
 package pulseanddecibels.jp.buzbiznew.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -28,7 +28,7 @@ public class ContactDetailsActivity extends Activity {
         setContentView(R.layout.activity_contact_details);
 
         Bundle arguments = getIntent().getExtras();
-        int telNumber = arguments.getInt("telNumber");
+        final int telNumber = arguments.getInt("telNumber");
 
         final ContactListItem contactForNumber = SampleDataUtil.getContactForNumber(telNumber);
         TextView contactName = (TextView) findViewById(R.id.contact_details_name);
@@ -39,7 +39,11 @@ public class ContactDetailsActivity extends Activity {
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ContactDetailsActivity.this, "Ring ring!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ContactDetailsActivity.this, OnCallActivity.class);
+                intent.putExtra("telNumber", contactForNumber.getTelNumber());
+                intent.putExtra("nameKanji", contactForNumber.getNameKanji());
+                intent.putExtra("nameKana", contactForNumber.getNameKana());
+                startActivity(intent);
             }
         });
 
