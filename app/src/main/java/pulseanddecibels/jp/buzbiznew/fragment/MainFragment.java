@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.adapter.ContactsFragmentPagerAdapter;
 import pulseanddecibels.jp.buzbiznew.adapter.HistoryFragmentPagerAdapter;
 import pulseanddecibels.jp.buzbiznew.model.TabBottom;
+import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/07.
@@ -53,10 +55,24 @@ public class MainFragment extends Fragment {
         Log.d(LOG_TAG, "onCreateView : "+mPage);
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        topTabViewPager = (ViewPager) view.findViewById(R.id.fragment_viewpager);
-        topTabViewPager.setAdapter(mPage == TabBottom.CONTACTS.getIndex() ?
-                new ContactsFragmentPagerAdapter(getChildFragmentManager(), getActivity()) :
-                new HistoryFragmentPagerAdapter(getChildFragmentManager(), getActivity()));
+        ViewStub stub = (ViewStub) view.findViewById(R.id.main_stub);
+
+        if(mPage == TabBottom.CONTACTS.getIndex() || mPage == TabBottom.HISTORY.getIndex()) {
+            stub.setLayoutResource(R.layout.content_pager);
+            View inflated = stub.inflate();
+
+            topTabViewPager = (ViewPager) inflated.findViewById(R.id.fragment_viewpager);
+            topTabViewPager.setAdapter(mPage == TabBottom.CONTACTS.getIndex() ?
+                    new ContactsFragmentPagerAdapter(getChildFragmentManager(), getActivity()) :
+                    new HistoryFragmentPagerAdapter(getChildFragmentManager(), getActivity()));
+        }
+
+        if(mPage == TabBottom.DIALPAD.getIndex()) {
+            stub.setLayoutResource(R.layout.content_dialpad);
+            View inflated = stub.inflate();
+
+            Util.initDialpad(inflated);
+        }
 
         //if this page is the current selected tab
         if(mPage == ((MainActivity)getActivity()).getCurrentSelectedBottomTab().getIndex()) {

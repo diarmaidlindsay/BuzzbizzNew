@@ -3,6 +3,9 @@ package pulseanddecibels.jp.buzbiznew.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +22,8 @@ public class OnCallActivity extends Activity {
     private static final Handler HANDLER = new Handler();
     TextView timerField;
     CallTimer timer;
+    LinearLayout dialpad;
+    LinearLayout callButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,38 @@ public class OnCallActivity extends Activity {
         nameKanaField.setText(nameKana);
 
         timerField = (TextView) findViewById(R.id.call_timer);
+
+        dialpad = (LinearLayout) findViewById(R.id.dialpad_content);
+        Util.initDialpad(dialpad);
+        callButtons = (LinearLayout) findViewById(R.id.call_content);
+
+        ImageButton muteButton = (ImageButton) callButtons.findViewById(R.id.button_mute);
+        ImageButton speakerButton = (ImageButton) callButtons.findViewById(R.id.button_speaker);
+        ImageButton dialpadButton = (ImageButton) callButtons.findViewById(R.id.button_dialpad);
+        dialpadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleVisible();
+            }
+        });
+        ImageButton holdButton = (ImageButton) callButtons.findViewById(R.id.button_hold);
+
+        ImageButton hangupButton = (ImageButton) callButtons.findViewById(R.id.button_hangup);
+
         startTimer();
+    }
+
+    /**
+     * Toggle visibility of keypad and calling control buttons
+     */
+    public void toggleVisible() {
+        if(dialpad.getVisibility() == View.VISIBLE) {
+            dialpad.setVisibility(View.GONE);
+            callButtons.setVisibility(View.VISIBLE);
+        } else {
+            callButtons.setVisibility(View.GONE);
+            dialpad.setVisibility(View.VISIBLE);
+        }
     }
 
     public void startTimer() {

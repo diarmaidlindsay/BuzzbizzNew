@@ -10,7 +10,8 @@ import android.util.Log;
  */
 public enum TabBottom {
     CONTACTS(0),
-    HISTORY(1);
+    HISTORY(1),
+    DIALPAD(2);
 
     int index;
 

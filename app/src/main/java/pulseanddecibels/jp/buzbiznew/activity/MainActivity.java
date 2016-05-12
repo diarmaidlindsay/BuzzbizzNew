@@ -1,16 +1,11 @@
 package pulseanddecibels.jp.buzbiznew.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
@@ -29,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = getClass().getSimpleName();
     private final int[] BOTTOM_TAB_ICONS = {
             R.drawable.selector_main_contacts,
-            R.drawable.selector_main_history
+            R.drawable.selector_main_history,
+            android.R.drawable.ic_dialog_dialer
     };
 
     private final int[] TOP_TAB_ICONS = {
@@ -46,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTopTabLayout;
     private ViewPager mTopTabViewPager;
     private ViewPager mBottomTabViewPager;
-    private LinearLayout dialPadLayout;
-    private FloatingActionButton floatingDialerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,48 +53,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mTopTabLayout = (TabLayout) findViewById(R.id.app_bar_tabs);
-
-        //initialise dial pad layout
-        dialPadLayout = (LinearLayout) findViewById(R.id.dialpad);
-        final TextView numberField = (TextView) dialPadLayout.findViewById(R.id.field_number_entry);
-        final Button deleteButton = (Button) dialPadLayout.findViewById(R.id.button_delete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = numberField.getText().toString();
-                if(text.length() > 0) {
-                    numberField.setText(text.substring(0, text.length()-1));
-                }
-            }
-        });
-
-
-        final int[] dialpadButtons = new int[] {
-                R.id.button_0, R.id.button_1, R.id.button_2, R.id.button_3, R.id.button_4,
-                R.id.button_5, R.id.button_6, R.id.button_7, R.id.button_8, R.id.button_9,
-                R.id.button_hash, R.id.button_star
-        };
-
-        for(int buttonId : dialpadButtons) {
-            final Button button = (Button) dialPadLayout.findViewById(buttonId);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    numberField.setText(numberField.getText().toString() + button.getText().toString());
-                }
-            });
-        }
-
-        floatingDialerButton = (FloatingActionButton) findViewById(R.id.button_dialer);
-        assert floatingDialerButton != null;
-        floatingDialerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //show dialpad (hidden by default)
-                dialPadLayout.setVisibility(View.VISIBLE);
-                floatingDialerButton.setVisibility(View.GONE);
-            }
-        });
 
         mBottomTabViewPager = (ViewPager) findViewById(R.id.main_viewpager);
         assert mBottomTabViewPager != null;
@@ -182,15 +134,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mBottomTabViewPager.setCurrentItem(savedInstanceState.getInt(BOTTOM_TAB_POSITION));
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(dialPadLayout != null && floatingDialerButton != null && dialPadLayout.getVisibility() == View.VISIBLE) {
-            dialPadLayout.setVisibility(View.GONE);
-            floatingDialerButton.setVisibility(View.VISIBLE);
-        } else {
-            super.onBackPressed();
-        }
     }
 }

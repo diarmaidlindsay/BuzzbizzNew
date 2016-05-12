@@ -14,7 +14,7 @@ import pulseanddecibels.jp.buzbiznew.fragment.MainFragment;
  * The Pager Adapter for the bottom tabs
  */
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 2;
+    final int PAGE_COUNT = 3;
 
     private Context context;
 
