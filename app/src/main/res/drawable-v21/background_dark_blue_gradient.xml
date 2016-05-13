@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="rectangle">
-    <!-- radial gradients are broken in pre-lollipop, "50000%" is the workaround
-    which is interpreted as 500px
-    https://recalll.co/app/?q=android%20-%20Gradient%20Radius%20as%20percentage%20of%20screen%20size
-    -->
     <gradient
         android:angle="0"
         android:centerX="30%"
         android:centerY="20%"
         android:endColor="#FF292154"
-        android:gradientRadius="50000%"
+        android:gradientRadius="100%p"
         android:startColor="#FF275d8a"
         android:type="radial"/>
 </shape>
