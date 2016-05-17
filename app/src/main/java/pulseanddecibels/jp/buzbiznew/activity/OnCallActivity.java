@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -61,6 +62,10 @@ public class OnCallActivity extends Activity {
         ImageButton holdButton = (ImageButton) callButtons.findViewById(R.id.button_hold);
 
         ImageButton hangupButton = (ImageButton) callButtons.findViewById(R.id.button_hangup);
+
+        Button callButton = (Button) dialpad.findViewById(R.id.button_call);
+        //hide call button when we're actually on a call
+        callButton.setVisibility(View.GONE);
 
         startTimer();
     }

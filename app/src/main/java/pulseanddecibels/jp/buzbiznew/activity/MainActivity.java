@@ -135,4 +135,11 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mBottomTabViewPager.setCurrentItem(savedInstanceState.getInt(BOTTOM_TAB_POSITION));
     }
+
+    /**
+     * To enable the tabs to be hidden for the dialpad view and shown for contacts/history
+     */
+    public TabLayout getmTopTabLayout() {
+        return mTopTabLayout;
+    }
 }

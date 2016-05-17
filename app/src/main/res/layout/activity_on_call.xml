@@ -27,7 +27,7 @@
         android:id="@+id/call_timer"
         style="@style/WhiteText.Largest"
         android:layout_gravity="center_horizontal"
-        android:padding="30dp"
+        android:padding="10dp"
         android:text="00:00"
         android:textSize="50sp"/>
 
