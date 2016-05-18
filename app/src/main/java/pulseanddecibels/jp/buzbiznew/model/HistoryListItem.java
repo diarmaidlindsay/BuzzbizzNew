@@ -7,17 +7,17 @@ import pulseanddecibels.jp.buzbiznew.R;
  * Copyright Pulse and Decibels 2016
  */
 public class HistoryListItem {
-    private int telNumber;
+    private String telNumber;
     private String time;
     private CallDirection direction;
 
-    public HistoryListItem(int telNumber, String time, CallDirection direction) {
+    public HistoryListItem(String telNumber, String time, CallDirection direction) {
         this.telNumber = telNumber;
         this.time = time;
         this.direction = direction;
     }
 
-    public int getTelNumber() {
+    public String getTelNumber() {
         return telNumber;
     }
 
@@ -42,10 +42,9 @@ public class HistoryListItem {
 
     /**
      * Should be determined from the phone/extension number eventually
-     * @return
      */
     public TabTopContact getLineType() {
-        if(telNumber < 1000) {
+        if(Integer.parseInt(telNumber) < 1000) {
             return TabTopContact.INSIDE;
         }
         return TabTopContact.OUTSIDE;

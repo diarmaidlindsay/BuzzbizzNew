@@ -1,7 +1,5 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
-import android.util.Log;
-
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.BuzbizApplication;
 
@@ -30,7 +28,6 @@ public enum TabTopContact {
             }
         }
 
-        Log.e("TabTopContact", "No matching Tab found!! Returning default tab");
         return OUTSIDE;
     }
 

@@ -28,13 +28,13 @@ public class ContactDetailsActivity extends Activity {
         setContentView(R.layout.activity_contact_details);
 
         Bundle arguments = getIntent().getExtras();
-        final int telNumber = arguments.getInt("telNumber");
+        final String telNumber = arguments.getString("telNumber");
 
         final ContactListItem contactForNumber = SampleDataUtil.getContactForNumber(telNumber);
         TextView contactName = (TextView) findViewById(R.id.contact_details_name);
         contactName.setText(contactForNumber.getNameKanji());
         TextView contactNumber = (TextView) findViewById(R.id.contact_details_number);
-        contactNumber.setText(String.format(Locale.JAPAN, "%d", contactForNumber.getTelNumber()));
+        contactNumber.setText(String.format(Locale.JAPAN, "%s", contactForNumber.getTelNumber()));
         Button callButton = (Button) findViewById(R.id.button_call);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override

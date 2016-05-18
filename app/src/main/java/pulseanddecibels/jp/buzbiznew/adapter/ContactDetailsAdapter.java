@@ -24,10 +24,10 @@ public class ContactDetailsAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private ViewHolderItem viewHolder;
 
-    public ContactDetailsAdapter(Context context, int telNum) {
+    public ContactDetailsAdapter(Context context, String telNum) {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(context);
-        contactDetailsList = SampleDataUtil.getSampleContactDetails(telNum);
+        contactDetailsList = SampleDataUtil.getSampleContactDetails(Integer.parseInt(telNum));
     }
 
     @Override

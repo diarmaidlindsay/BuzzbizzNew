@@ -33,12 +33,12 @@ public class OnCallActivity extends Activity {
         setContentView(R.layout.activity_on_call);
 
         Bundle arguments = getIntent().getExtras();
-        final int telNumber = arguments.getInt("telNumber");
+        final String telNumber = arguments.getString("telNumber");
         final String nameKanji = arguments.getString("nameKanji");
         final String nameKana = arguments.getString("nameKana");
 
         TextView telNumberField = (TextView) findViewById(R.id.call_number);
-        telNumberField.setText(String.format(Locale.JAPAN, "%d", telNumber));
+        telNumberField.setText(String.format(Locale.JAPAN, "%s", telNumber));
         TextView nameKanjiField = (TextView) findViewById(R.id.call_name_kanji);
         nameKanjiField.setText(nameKanji);
         TextView nameKanaField = (TextView) findViewById(R.id.call_name_kana);
@@ -122,7 +122,6 @@ public class OnCallActivity extends Activity {
                 public void run() {
                     long currentTime = System.currentTimeMillis();
                     long diff = currentTime - startTime;
-
 
                     if (diff >= 3600000) {
                         OnCallActivity.this.setDisplayCallerTimer(longTimeFormat.format(diff));

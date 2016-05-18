@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         if(mTopTabViewPager != null) {
             return TabTopContact.getTab(mTopTabViewPager.getCurrentItem());
         }
-        Log.e(LOG_TAG, "mTopTabViewPager was null, returning default item");
         return TabTopContact.OUTSIDE;
     }
 
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         if(mTopTabViewPager != null) {
             return TabTopHistory.getTab(mTopTabViewPager.getCurrentItem());
         }
-        Log.e(LOG_TAG, "mTopTabViewPager was null, returning default item");
         return TabTopHistory.CALL_BOTH;
     }
 

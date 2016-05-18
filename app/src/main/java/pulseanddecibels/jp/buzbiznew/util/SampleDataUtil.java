@@ -96,7 +96,7 @@ public class SampleDataUtil {
         }
 
         for(int i = 0; i < SAMPLE_CONTACTS_JP_KANA.length; i++) {
-            sampleContacts.put(sampleNumbers.get(i), new ContactListItem(sampleNumbers.get(i), SAMPLE_CONTACTS_JP_KANA[i], SAMPLE_CONTACTS_JP[i]));
+            sampleContacts.put(sampleNumbers.get(i), new ContactListItem(Integer.toString(sampleNumbers.get(i)), SAMPLE_CONTACTS_JP_KANA[i], SAMPLE_CONTACTS_JP[i]));
         }
 
         return new ArrayList<>(sampleContacts.values());
@@ -120,11 +120,11 @@ public class SampleDataUtil {
         return sampleNumbers;
     }
 
-    public static ContactListItem getContactForNumber(int telNum) {
+    public static ContactListItem getContactForNumber(String telNum) {
         if(sampleContacts == null) {
             getSampleContacts();
         }
-        return sampleContacts.get(telNum);
+        return sampleContacts.get(Integer.parseInt(telNum));
     }
 
     private static List<Integer> getCurrentSampleNumbers() {
