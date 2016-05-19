@@ -3,6 +3,7 @@ package pulseanddecibels.jp.buzbiznew.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -60,6 +61,13 @@ public class OnCallActivity extends Activity {
             }
         });
         ImageButton holdButton = (ImageButton) callButtons.findViewById(R.id.button_hold);
+        holdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //when hold button pressed, go back to Main Activity (as specified in Manifest)
+                NavUtils.navigateUpFromSameTask(OnCallActivity.this);
+            }
+        });
 
         ImageButton hangupButton = (ImageButton) callButtons.findViewById(R.id.button_hangup);
 

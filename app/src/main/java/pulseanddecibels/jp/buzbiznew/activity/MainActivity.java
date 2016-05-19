@@ -1,11 +1,14 @@
 package pulseanddecibels.jp.buzbiznew.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.MainFragmentPagerAdapter;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTopTabLayout;
     private ViewPager mTopTabViewPager;
     private ViewPager mBottomTabViewPager;
+    private FloatingActionButton floatingDialerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,15 @@ public class MainActivity extends AppCompatActivity {
             assert tab != null;
             tab.setIcon(BOTTOM_TAB_ICONS[i]);
         }
+
+        floatingDialerButton = (FloatingActionButton) findViewById(R.id.button_hold);
+        floatingDialerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HoldActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

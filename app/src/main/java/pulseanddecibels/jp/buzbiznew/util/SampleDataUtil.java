@@ -13,6 +13,7 @@ import pulseanddecibels.jp.buzbiznew.model.CallState;
 import pulseanddecibels.jp.buzbiznew.model.ContactDetailsListItem;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
+import pulseanddecibels.jp.buzbiznew.model.HoldListItem;
 import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
 
 /**
@@ -192,5 +193,18 @@ public class SampleDataUtil {
             }
         }
         return contactDetailsList;
+    }
+
+    public static List<HoldListItem> getSampleHoldList(int amount) {
+        List<HoldListItem> holdListItems = new ArrayList<>();
+        List<ContactListItem> sampleContacts = getSampleContacts();
+
+        for(int i = 0; i < amount; i++) {
+            ContactListItem contactListItem = sampleContacts.get(Util.randInt(0, sampleContacts.size()-1));
+            HoldListItem holdListItem = new HoldListItem(contactListItem.getNameKanji(), contactListItem.getTelNumber(), Util.randInt(0, 7000));
+            holdListItems.add(holdListItem);
+        }
+
+        return holdListItems;
     }
 }

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import org.joda.time.DateTimeZone;
 
+import java.util.Locale;
 import java.util.Random;
 
 import pulseanddecibels.jp.buzbiznew.R;
@@ -95,6 +96,35 @@ public class Util {
                     numberField.setText(numberField.getText().toString() + button.getText().toString());
                 }
             });
+        }
+    }
+
+    /**
+     * Given seconds, return time in format of 00:00:00
+     */
+    public static String getTimeFromSecs(int totalSeconds) {
+        int seconds = totalSeconds % 60;
+        int totalMinutes = totalSeconds / 60;
+        int minutes = totalMinutes % 60;
+        int hours = totalMinutes / 60;
+
+        if (totalMinutes > 0) {
+            if(hours > 0) {
+                String secString = seconds < 10 ? "0"+seconds : ""+seconds;
+                String minString = minutes < 10 ? "0"+minutes : ""+minutes;
+                String hourString = hours < 10 ? "0"+hours : ""+hours;
+                return String.format(Locale.JAPAN, "%s:%s:%s", hourString, minString, secString);
+            } else {
+                // Less than 01:00:00 (00:59:59 etc)
+                String secString = seconds < 10 ? "0"+seconds : ""+seconds;
+                String minString = totalMinutes < 10 ? "0"+totalMinutes : ""+totalMinutes;
+                return String.format(Locale.JAPAN, "%s:%s", minString, secString);
+            }
+
+        } else {
+            // Less than 01:00 (00:09, 00:59, etc)
+            String secString = totalSeconds < 10 ? "0"+totalSeconds : ""+totalSeconds;
+            return String.format(Locale.JAPAN, "00:%s", secString);
         }
     }
 
