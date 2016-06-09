@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Buzbiz</string>
+    <string name="app_name">Tulara</string>
     <string name="line_inside">内線</string>
     <string name="line_outside">外線</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="text_forgot_password">パスワードを忘れた？</string>
 </resources>

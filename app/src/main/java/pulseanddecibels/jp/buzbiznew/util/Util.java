@@ -1,5 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.util;
 
+import android.app.Activity;
+import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,6 +40,18 @@ public class Util {
                 == Character.UnicodeBlock.HIRAGANA ||
                 Character.UnicodeBlock.of(value)
                 == Character.UnicodeBlock.KATAKANA;
+    }
+
+    public static void goFullScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT < 19) { //19 or above api
+            View v = activity.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else {
+            //for lower api versions.
+            View decorView = activity.getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
     /**
