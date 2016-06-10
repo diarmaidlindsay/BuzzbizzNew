@@ -1,6 +1,8 @@
 package pulseanddecibels.jp.buzbiznew.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,10 @@ import pulseanddecibels.jp.buzbiznew.R;
  */
 public class Util {
     public static final DateTimeZone JAPAN_TIME_ZONE = DateTimeZone.forOffsetHours(9);
+
+    public static Typeface getIconMoonTypeFace(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/icomoon.ttf");
+    }
 
     public static int randInt(int min, int max) {
 

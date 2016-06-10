@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Tulara</string>
-    <string name="line_inside">内線</string>
-    <string name="line_outside">外線</string>
+    <string name="line_inside">h</string>
+    <string name="line_outside">i</string>
+    <string name="line_phone">p</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="button_login">Login</string>

@@ -22,30 +22,31 @@ import pulseanddecibels.jp.buzbiznew.model.TabTopHistory;
  */
 public class MainActivity extends AppCompatActivity {
 
-    //Save/Restore instance state keys
     private static final String BOTTOM_TAB_POSITION = "BOTTOM_POS";
     private final String LOG_TAG = getClass().getSimpleName();
     private final int[] BOTTOM_TAB_ICONS = {
             R.drawable.selector_main_contacts,
             R.drawable.selector_main_history,
-            android.R.drawable.ic_dialog_dialer
+            R.drawable.selector_main_dialpad
     };
 
-    private final int[] TOP_TAB_ICONS = {
+    private final int[] TOP_TAB_HISTORY_ICONS = {
             R.drawable.selector_history_all,
             R.drawable.selector_history_out,
             R.drawable.selector_history_in
     };
 
-    private final String[] TOP_TAB_LABELS = {
-            "外線",
-            "内線"
+    private final int[] TOP_TAB_CONTACTS_ICONS = {
+            R.drawable.selector_contacts_out,
+            R.drawable.selector_contacts_in,
+            R.drawable.selector_contacts_phone
     };
 
     private TabLayout mTopTabLayout;
     private ViewPager mTopTabViewPager;
     private ViewPager mBottomTabViewPager;
     private FloatingActionButton floatingDialerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,14 +122,14 @@ public class MainActivity extends AppCompatActivity {
             switch (getCurrentSelectedBottomTab()) {
                 case CONTACTS:
                     //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
-                    if(i < TOP_TAB_LABELS.length) {
-                        tab.setText(TOP_TAB_LABELS[i]);
+                    if(i < TOP_TAB_CONTACTS_ICONS.length) {
+                        tab.setIcon(TOP_TAB_CONTACTS_ICONS[i]);
                     }
                     break;
                 case HISTORY:
                     //Sometimes gets called before view pager switched out, so avoid IndexOutOfBoundsException
-                    if(i < TOP_TAB_ICONS.length) {
-                        tab.setIcon(TOP_TAB_ICONS[i]);
+                    if(i < TOP_TAB_HISTORY_ICONS.length) {
+                        tab.setIcon(TOP_TAB_HISTORY_ICONS[i]);
                     }
                     break;
             }

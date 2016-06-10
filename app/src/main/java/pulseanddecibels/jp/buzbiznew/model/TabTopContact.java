@@ -11,7 +11,8 @@ import pulseanddecibels.jp.buzbiznew.activity.BuzbizApplication;
  */
 public enum TabTopContact {
     OUTSIDE(R.string.line_outside, 0),
-    INSIDE(R.string.line_inside, 1);
+    INSIDE(R.string.line_inside, 1),
+    PHONE(R.string.line_phone, 2);
 
     private int resourceId;
     private int index;

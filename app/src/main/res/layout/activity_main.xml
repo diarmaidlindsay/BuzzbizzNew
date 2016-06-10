@@ -41,11 +41,13 @@
         android:id="@+id/button_hold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:alpha=".70"
         android:padding="10dp"
-        android:src="@android:drawable/ic_media_pause"/>
+        android:src="@drawable/hold_button"
+        app:backgroundTint="@android:color/white"/>
 
 </android.support.design.widget.CoordinatorLayout>

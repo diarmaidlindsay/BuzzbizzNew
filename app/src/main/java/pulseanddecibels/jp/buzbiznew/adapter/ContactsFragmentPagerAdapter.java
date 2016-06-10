@@ -12,7 +12,7 @@ import pulseanddecibels.jp.buzbiznew.fragment.ContactsFragment;
  * Copyright Pulse and Decibels 2016
  */
 public class ContactsFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 2;
+    final int PAGE_COUNT = 3;
 
     private Context context;
 

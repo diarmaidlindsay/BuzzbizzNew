@@ -38,12 +38,15 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
 
     List<ContactListItem> contactsInside;
     List<ContactListItem> contactsOutside;
+    List<ContactListItem> contactsPhone;
     //For fast scroller
     HashMap<String, Integer> mapIndexInside = new LinkedHashMap<>();
     HashMap<String, Integer> mapIndexOutside = new LinkedHashMap<>();
+    HashMap<String, Integer> mapIndexPhone = new LinkedHashMap<>();
     //For fast scroller
     String[] sectionsInside;
     String[] sectionsOutside;
+    String[] sectionsPhone;
     //Sample Data
     private Context mContext;
     private LayoutInflater layoutInflater;
@@ -54,11 +57,14 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
         layoutInflater = LayoutInflater.from(context);
         contactsInside = SampleDataUtil.getSampleContacts(TabTopContact.INSIDE);
         contactsOutside = SampleDataUtil.getSampleContacts(TabTopContact.OUTSIDE);
+        contactsPhone = SampleDataUtil.getSampleContacts(TabTopContact.PHONE);
         Collections.sort(contactsInside, new SortIgnoreCase());
         Collections.sort(contactsOutside, new SortIgnoreCase());
+        Collections.sort(contactsPhone, new SortIgnoreCase());
 
         initFastScroller(TabTopContact.INSIDE);
         initFastScroller(TabTopContact.OUTSIDE);
+        initFastScroller(TabTopContact.PHONE);
     }
 
     private void initFastScroller(TabTopContact tab) {
@@ -73,6 +79,10 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
             case INSIDE:
                 contacts = contactsInside;
                 mapIndex = mapIndexInside;
+                break;
+            case PHONE:
+                contacts = contactsPhone;
+                mapIndex = mapIndexPhone;
                 break;
         }
         for (int x = 0; x < contacts.size(); x++) {
@@ -102,6 +112,9 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
             case INSIDE:
                 sectionsInside = sectionList.toArray(new String[sectionList.size()]);
                 break;
+            case PHONE:
+                sectionsPhone = sectionList.toArray(new String[sectionList.size()]);
+                break;
         }
     }
 
@@ -112,6 +125,8 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
                 return contactsOutside.size();
             case INSIDE:
                 return contactsInside.size();
+            case PHONE:
+                return contactsPhone.size();
         }
         return -1;
     }
@@ -123,6 +138,8 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
                 return contactsOutside.get(position);
             case INSIDE:
                 return contactsInside.get(position);
+            case PHONE:
+                return contactsPhone.get(position);
         }
 
         return null;
@@ -170,6 +187,8 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
                 return sectionsOutside;
             case INSIDE:
                 return sectionsInside;
+            case PHONE:
+                return sectionsPhone;
         }
 
         return null;
@@ -189,6 +208,12 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
                     return mapIndexInside.get(sectionsInside[sectionIndex]);
                 } else {
                     return sectionsInside.length - 1;
+                }
+            case PHONE:
+                if(sectionIndex <= sectionsPhone.length - 1) {
+                    return mapIndexPhone.get(sectionsPhone[sectionIndex]);
+                } else {
+                    return sectionsPhone.length - 1;
                 }
         }
 
