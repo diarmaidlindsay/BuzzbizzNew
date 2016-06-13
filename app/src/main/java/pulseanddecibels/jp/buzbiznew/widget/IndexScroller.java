@@ -24,6 +24,7 @@ import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Adapter;
 import android.widget.ListView;
@@ -193,11 +194,16 @@ public class IndexScroller {
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         mListViewWidth = w;
         mListViewHeight = h;
-        mIndexbarRect = new RectF(w - mIndexbarMargin - mIndexbarWidth
-                , mIndexbarMargin
-                , w - mIndexbarMargin
+        float left = w - mIndexbarMargin - mIndexbarWidth;
+        float top = mIndexbarMargin;
+        float right = w - mIndexbarMargin;
+        float bottom = (h - mIndexbarMargin) * 0.9f;
+        Log.d("IndexScroller : ",left+" , "+top+" , "+right+" , "+bottom );
+        mIndexbarRect = new RectF(left
+                , top
+                , right
                 //Diarmaid - modify height of fast scroller so that it's not hidden behind lower tabs
-                , (h - mIndexbarMargin) * 0.9f);
+                , bottom);
     }
 
     public void show() {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -156,7 +155,7 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
             convertView = layoutInflater.inflate(R.layout.list_item_contact, parent, false);
             viewHolder = new ViewHolderItem();
             viewHolder.name = (TextView) convertView.findViewById(R.id.contact_name);
-            viewHolder.icon = (ImageView) convertView.findViewById(R.id.contact_image);
+            viewHolder.number = (TextView) convertView.findViewById(R.id.contact_number);
 
             convertView.setTag(viewHolder);
         } else {
@@ -166,7 +165,7 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
         final ContactListItem contactListItem = (ContactListItem) getItem(position);
 
         viewHolder.name.setText(contactListItem.getNameKanji());
-        viewHolder.icon.setImageResource(android.R.drawable.btn_star);
+        viewHolder.number.setText(contactListItem.getTelNumber());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,8 +225,8 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     static class ViewHolderItem {
-        ImageView icon;
         TextView name;
+        TextView number;
     }
 
     private class SortIgnoreCase implements Comparator<ContactListItem> {
