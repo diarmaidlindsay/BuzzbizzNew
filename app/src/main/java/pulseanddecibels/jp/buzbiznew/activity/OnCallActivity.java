@@ -113,6 +113,16 @@ public class OnCallActivity extends Activity {
         stopTimer();
     }
 
+    @Override
+    public void onBackPressed() {
+        //hide dialpad when back pressed
+        if(dialpad.getVisibility() == View.VISIBLE) {
+            toggleVisible();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private class CallTimer {
         private final SimpleDateFormat shortTimeFormat	= new SimpleDateFormat("mm:ss",		Locale.JAPANESE);
         private final SimpleDateFormat longTimeFormat	= new SimpleDateFormat("HH:mm:ss",	Locale.JAPANESE);
