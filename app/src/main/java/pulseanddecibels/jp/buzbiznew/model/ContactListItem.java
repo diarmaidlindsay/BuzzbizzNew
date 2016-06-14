@@ -1,5 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
+import pulseanddecibels.jp.buzbiznew.util.Util;
+
 /**
  * Created by Diarmaid Lindsay on 2016/04/13.
  * Copyright Pulse and Decibels 2016
@@ -31,9 +33,7 @@ public class ContactListItem {
      * Should be determined from the phone/extension number eventually
      */
     public TabTopContact getLineType() {
-        if(Integer.parseInt(telNumber) < 1000) {
-            return TabTopContact.INSIDE;
-        }
-        return TabTopContact.OUTSIDE;
+        //return random type for testing purposes.
+        return TabTopContact.values()[Util.randInt(0,TabTopContact.values().length-1)];
     }
 }
