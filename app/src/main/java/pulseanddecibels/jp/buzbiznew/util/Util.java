@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import pulseanddecibels.jp.buzbiznew.R;
+import pulseanddecibels.jp.buzbiznew.activity.BuzbizApplication;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
@@ -21,9 +22,13 @@ import pulseanddecibels.jp.buzbiznew.R;
  */
 public class Util {
     public static final DateTimeZone JAPAN_TIME_ZONE = DateTimeZone.forOffsetHours(9);
+    private static Typeface icoMoonFont;
 
     public static Typeface getIconMoonTypeFace(Context context) {
-        return Typeface.createFromAsset(context.getAssets(), "fonts/icomoon.ttf");
+        if(icoMoonFont == null) {
+            icoMoonFont = Typeface.createFromAsset(context.getAssets(), "fonts/icomoon.ttf");
+        }
+        return icoMoonFont;
     }
 
     public static int randInt(int min, int max) {
@@ -92,6 +97,7 @@ public class Util {
     public static void initDialpad(View dialpadLayout) {
         final TextView numberField = (TextView) dialpadLayout.findViewById(R.id.field_number_entry);
         final Button deleteButton = (Button) dialpadLayout.findViewById(R.id.button_delete);
+        deleteButton.setTypeface(Util.getIconMoonTypeFace(BuzbizApplication.getContext()));
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

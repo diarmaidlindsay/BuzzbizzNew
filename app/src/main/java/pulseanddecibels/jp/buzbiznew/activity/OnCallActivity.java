@@ -72,6 +72,7 @@ public class OnCallActivity extends Activity {
         ImageButton hangupButton = (ImageButton) callButtons.findViewById(R.id.button_hangup);
 
         Button callButton = (Button) dialpad.findViewById(R.id.button_call);
+        callButton.setTypeface(Util.getIconMoonTypeFace(this));
         //hide call button when we're actually on a call
         callButton.setVisibility(View.GONE);
 

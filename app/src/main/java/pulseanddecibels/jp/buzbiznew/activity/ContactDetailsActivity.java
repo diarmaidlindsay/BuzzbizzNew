@@ -14,6 +14,7 @@ import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.ContactDetailsAdapter;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
+import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/28.
@@ -36,6 +37,7 @@ public class ContactDetailsActivity extends Activity {
         TextView contactNumber = (TextView) findViewById(R.id.contact_details_number);
         contactNumber.setText(String.format(Locale.JAPAN, "%s", contactForNumber.getTelNumber()));
         Button callButton = (Button) findViewById(R.id.button_call);
+        callButton.setTypeface(Util.getIconMoonTypeFace(this));
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

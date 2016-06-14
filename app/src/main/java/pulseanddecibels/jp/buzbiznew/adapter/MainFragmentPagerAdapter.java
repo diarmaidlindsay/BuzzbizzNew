@@ -30,6 +30,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainFragment.newInstance(context, position);
+        return MainFragment.newInstance(position);
     }
 }

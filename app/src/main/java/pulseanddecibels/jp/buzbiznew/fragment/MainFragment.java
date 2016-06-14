@@ -1,6 +1,5 @@
 package pulseanddecibels.jp.buzbiznew.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
 
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
@@ -27,16 +27,13 @@ import pulseanddecibels.jp.buzbiznew.util.Util;
 public class MainFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private final String LOG_TAG = getClass().getSimpleName();
-//    private static Context mContext;
     //Uniquely identifies this page in the view pager
     private int mPage;
     private ViewPager topTabViewPager;
 
-    public static MainFragment newInstance(Context context, int page) {
+    public static MainFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        //mContext = context;
-        //FragmentActivity activity = (FragmentActivity) mContext;
         MainFragment fragment = new MainFragment();
         fragment.setArguments(args);
 
@@ -69,6 +66,8 @@ public class MainFragment extends Fragment {
             stub.setLayoutResource(R.layout.content_dialpad);
             View inflated = stub.inflate();
             Util.initDialpad(inflated);
+            Button callButton = (Button) inflated.findViewById(R.id.button_call);
+            callButton.setTypeface(Util.getIconMoonTypeFace(getFragmentActivity()));
         }
 
         //if this page is the current selected tab
