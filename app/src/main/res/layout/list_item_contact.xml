@@ -42,9 +42,6 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:orientation="vertical"
-        android:padding="10dp">
-
-    </LinearLayout>
-
+        android:padding="10dp"/>
 
 </FrameLayout>

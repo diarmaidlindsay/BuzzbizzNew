@@ -32,9 +32,9 @@ public class HistoryListItem {
     public int getDirectionImage() {
         switch (direction) {
             case IN:
-                return R.drawable.history_in_bg;
+                return R.drawable.history_in_fg;
             case OUT:
-                return R.drawable.history_out_bg;
+                return R.drawable.history_out_fg;
         }
 
         return android.R.drawable.presence_busy;

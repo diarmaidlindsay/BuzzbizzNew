@@ -16,7 +16,6 @@ import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.CallDirection;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
-import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
@@ -82,7 +81,7 @@ public class HistoryAdapter extends BaseAdapter {
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.history_direction);
             viewHolder.name = (TextView) convertView.findViewById(R.id.history_name);
             viewHolder.time = (TextView) convertView.findViewById(R.id.history_time);
-            viewHolder.lineType = (TextView) convertView.findViewById(R.id.history_line_type);
+            viewHolder.telNumber = (TextView) convertView.findViewById(R.id.history_number);
 
             convertView.setTag(viewHolder);
         } else {
@@ -94,8 +93,7 @@ public class HistoryAdapter extends BaseAdapter {
         //lookup name from phone number
         viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getTelNumber()).getNameKanji());
         viewHolder.time.setText(historyListItem.getTime());
-        viewHolder.lineType.setTypeface(Util.getIconMoonTypeFace(mContext));
-        viewHolder.lineType.setText(historyListItem.getLineType().toString());
+        viewHolder.telNumber.setText(historyListItem.getTelNumber());
 
         return convertView;
     }
@@ -104,6 +102,6 @@ public class HistoryAdapter extends BaseAdapter {
         ImageView icon;
         TextView name;
         TextView time;
-        TextView lineType;
+        TextView telNumber;
     }
 }
