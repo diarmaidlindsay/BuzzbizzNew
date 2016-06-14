@@ -100,17 +100,28 @@ public class IndexScroller {
         mPreviewPadding = 5 * mDensity;
     }
 
-    public void draw(Canvas canvas) {
+    public void drawSidebar(Canvas canvas) {
         if (mState == STATE_HIDDEN)
             return;
 
-        // mAlphaRate determines the rate of opacity
-        Paint indexbarPaint = new Paint();
-        indexbarPaint.setColor(Color.BLACK);
-        indexbarPaint.setAlpha((int) (64 * mAlphaRate));
-        indexbarPaint.setAntiAlias(true);
-        canvas.drawRoundRect(mIndexbarRect, 5 * mDensity, 5 * mDensity, indexbarPaint);
+        if (mSections != null && mSections.length > 0) {
+            Paint indexPaint = new Paint();
+            indexPaint.setColor(Color.WHITE);
+            indexPaint.setAlpha((int) (255 * mAlphaRate));
+            indexPaint.setAntiAlias(true);
+            indexPaint.setTextSize(12 * mScaledDensity);
 
+            float sectionHeight = (mIndexbarRect.height() - 2 * mIndexbarMargin) / mSections.length;
+            float paddingTop = (sectionHeight - (indexPaint.descent() - indexPaint.ascent())) / 2;
+            for (int i = 0; i < mSections.length; i++) {
+                float paddingLeft = (mIndexbarWidth - indexPaint.measureText(mSections[i])) / 2;
+                canvas.drawText(mSections[i], mIndexbarRect.left + paddingLeft
+                        , mIndexbarRect.top + mIndexbarMargin + sectionHeight * i + paddingTop - indexPaint.ascent(), indexPaint);
+            }
+        }
+    }
+
+    public void drawPreview(Canvas canvas) {
         if (mSections != null && mSections.length > 0) {
             // Preview is shown when mCurrentSection is set
             if (mCurrentSection >= 0) {
@@ -135,20 +146,6 @@ public class IndexScroller {
                 canvas.drawRoundRect(previewRect, 5 * mDensity, 5 * mDensity, previewPaint);
                 canvas.drawText(mSections[mCurrentSection], previewRect.left + (previewSize - previewTextWidth) / 2 - 1
                         , previewRect.top + mPreviewPadding - previewTextPaint.ascent() + 1, previewTextPaint);
-            }
-
-            Paint indexPaint = new Paint();
-            indexPaint.setColor(Color.WHITE);
-            indexPaint.setAlpha((int) (255 * mAlphaRate));
-            indexPaint.setAntiAlias(true);
-            indexPaint.setTextSize(12 * mScaledDensity);
-
-            float sectionHeight = (mIndexbarRect.height() - 2 * mIndexbarMargin) / mSections.length;
-            float paddingTop = (sectionHeight - (indexPaint.descent() - indexPaint.ascent())) / 2;
-            for (int i = 0; i < mSections.length; i++) {
-                float paddingLeft = (mIndexbarWidth - indexPaint.measureText(mSections[i])) / 2;
-                canvas.drawText(mSections[i], mIndexbarRect.left + paddingLeft
-                        , mIndexbarRect.top + mIndexbarMargin + sectionHeight * i + paddingTop - indexPaint.ascent(), indexPaint);
             }
         }
     }
@@ -194,10 +191,14 @@ public class IndexScroller {
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         mListViewWidth = w;
         mListViewHeight = h;
-        float left = w - mIndexbarMargin - mIndexbarWidth;
+        float left = 30;
         float top = mIndexbarMargin;
-        float right = w - mIndexbarMargin;
+        float right = 60;
         float bottom = (h - mIndexbarMargin) * 0.9f;
+//        float left = w - mIndexbarMargin - mIndexbarWidth;
+//        float top = mIndexbarMargin;
+//        float right = w - mIndexbarMargin;
+//        float bottom = (h - mIndexbarMargin) * 0.9f;
         Log.d("IndexScroller : ",left+" , "+top+" , "+right+" , "+bottom );
         mIndexbarRect = new RectF(left
                 , top
@@ -246,15 +247,17 @@ public class IndexScroller {
                 break;
             case STATE_HIDING:
                 // Start to fade out after three seconds
-                mAlphaRate = 1;
-                fade(3000);
+                // Diarmaid : Don't hide
+//                mAlphaRate = 1;
+//                fade(3000);
                 break;
         }
     }
 
     public boolean contains(float x, float y) {
         // Determine if the point is in index bar region, which includes the right margin of the bar
-        return (x >= mIndexbarRect.left && y >= mIndexbarRect.top && y <= mIndexbarRect.top + mIndexbarRect.height());
+        boolean contains = x >= mIndexbarRect.left && y >= mIndexbarRect.top && y <= mIndexbarRect.top + mIndexbarRect.height();
+        return contains;
     }
 
     private int getSectionByPoint(float y) {

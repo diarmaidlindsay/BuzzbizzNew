@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.adapter.ContactsAdapter;
 import pulseanddecibels.jp.buzbiznew.widget.IndexableListView;
+import pulseanddecibels.jp.buzbiznew.widget.ScrollerAreaView;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/06.
@@ -40,6 +41,8 @@ public class ContactsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
 
         IndexableListView contactsList = (IndexableListView) view.findViewById(R.id.list_contacts);
+        ScrollerAreaView scrollerAreaView = (ScrollerAreaView) view.findViewById(R.id.scroller_space);
+        contactsList.setScrollerAreaView(scrollerAreaView);
         contactsList.setFastScrollEnabled(true);
         adapter = new ContactsAdapter(getActivity());
         contactsList.setAdapter(adapter);

@@ -19,8 +19,8 @@ package pulseanddecibels.jp.buzbiznew.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -28,6 +28,7 @@ public class IndexableListView extends ListView {
 
     private boolean mIsFastScrollEnabled = false;
     private IndexScroller mScroller = null;
+    private ScrollerAreaView mScrollerAreaView = null;
     private GestureDetector mGestureDetector = null;
 
     public IndexableListView(Context context) {
@@ -42,6 +43,11 @@ public class IndexableListView extends ListView {
         super(context, attrs, defStyle);
     }
 
+    public void setScrollerAreaView(ScrollerAreaView scrollerAreaView) {
+        scrollerAreaView.setWillNotDraw(false);
+        mScrollerAreaView = scrollerAreaView;
+    }
+
     @Override
     public boolean isFastScrollEnabled() {
         return mIsFastScrollEnabled;
@@ -53,54 +59,32 @@ public class IndexableListView extends ListView {
         if (mIsFastScrollEnabled) {
             if (mScroller == null)
                 mScroller = new IndexScroller(getContext(), this);
+                if(mScrollerAreaView != null) {
+                    mScrollerAreaView.setScroller(mScroller);
+                    mScroller.show();
+                } else {
+                    Log.e("IndexableListView", "mScrollerAreaView is null, so the scroller won't display");
+                }
         } else {
             if (mScroller != null) {
                 mScroller.hide();
                 mScroller = null;
+                if(mScrollerAreaView != null) {
+                    mScrollerAreaView.setScroller(null);
+                }
             }
         }
     }
 
-    @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-
-        // Overlay index bar
-        if (mScroller != null)
-            mScroller.draw(canvas);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        // Intercept ListView's touch event
-        if (mScroller != null && mScroller.onTouchEvent(ev))
-            return true;
-
-        if (mGestureDetector == null) {
-            mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
-
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2,
-                                       float velocityX, float velocityY) {
-                    // If fling happens, index bar shows
-                    if (mScroller != null)
-                        mScroller.show();
-                    return super.onFling(e1, e2, velocityX, velocityY);
-                }
-
-            });
+        if(mScrollerAreaView != null) {
+            mScrollerAreaView.invalidate();
         }
-        mGestureDetector.onTouchEvent(ev);
-
-        return super.onTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(mScroller.contains(ev.getX(), ev.getY()))
-            return true;
-
-        return super.onInterceptTouchEvent(ev);
+        if (mScroller != null) {
+            //draw preview inside listview's canvas
+            mScroller.drawPreview(canvas);
+        }
     }
 
     @Override
