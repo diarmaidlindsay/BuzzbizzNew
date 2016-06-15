@@ -25,11 +25,11 @@
         android:text="080 1234 5678"/>
     <TextView
         android:id="@+id/call_timer"
-        style="@style/WhiteText.Largest"
+        style="@style/WhiteTextThin"
         android:layout_gravity="center_horizontal"
         android:padding="10dp"
         android:text="00:00"
-        android:textSize="50sp"/>
+        android:textSize="70sp"/>
 
     <include android:id="@+id/call_content" layout="@layout/content_call_screen"/>
     <include android:id="@+id/dialpad_content" layout="@layout/content_dialpad" android:visibility="gone"/>

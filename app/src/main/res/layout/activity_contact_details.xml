@@ -22,13 +22,15 @@
             android:text="080 1234 5668"/>
         <Button
             android:id="@+id/button_call"
-            style="@style/WhiteText.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="40dp"
-            android:background="@drawable/button_round_edge"
-            android:paddingLeft="100dp"
-            android:paddingRight="100dp"
-            android:text="call"/>
+            android:background="@android:color/transparent"
+            android:text="c"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="50sp"/>
     </LinearLayout>
     <ListView
         android:id="@+id/list_contact_details"

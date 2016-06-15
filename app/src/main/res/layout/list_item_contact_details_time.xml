@@ -15,14 +15,10 @@
         <ImageView
             android:id="@+id/contact_details_call_state"
             style="@style/WhiteText.Small"
-            android:layout_toEndOf="@id/contact_details_time"
-            android:layout_toRightOf="@id/contact_details_time"
             android:padding="10dp"/>
         <TextView
             android:id="@+id/contact_details_duration"
             style="@style/WhiteText.Small"
-            android:layout_toEndOf="@id/contact_details_call_state"
-            android:layout_toRightOf="@id/contact_details_call_state"
             android:padding="10dp"
             android:text="01:11"/>
     </LinearLayout>

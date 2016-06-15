@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,16 +50,17 @@ public class OnCallActivity extends Activity {
         Util.initDialpad(dialpad);
         callButtons = (LinearLayout) findViewById(R.id.call_content);
 
-        ImageButton muteButton = (ImageButton) callButtons.findViewById(R.id.button_mute);
-        ImageButton speakerButton = (ImageButton) callButtons.findViewById(R.id.button_speaker);
-        ImageButton dialpadButton = (ImageButton) callButtons.findViewById(R.id.button_dialpad);
+        Button muteButton = (Button) callButtons.findViewById(R.id.button_mute);
+        Button speakerButton = (Button) callButtons.findViewById(R.id.button_speaker);
+        Button transferButton = (Button) callButtons.findViewById(R.id.button_transfer);
+        Button dialpadButton = (Button) callButtons.findViewById(R.id.button_dialpad);
         dialpadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleVisible();
             }
         });
-        ImageButton holdButton = (ImageButton) callButtons.findViewById(R.id.button_hold);
+        Button holdButton = (Button) callButtons.findViewById(R.id.button_hold);
         holdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,14 +69,24 @@ public class OnCallActivity extends Activity {
             }
         });
 
-        ImageButton hangupButton = (ImageButton) callButtons.findViewById(R.id.button_hangup);
+        Button hangupButton = (Button) callButtons.findViewById(R.id.button_hangup);
+
+        setFont(muteButton);
+        setFont(speakerButton);
+        setFont(transferButton);
+        setFont(dialpadButton);
+        setFont(holdButton);
+        setFont(hangupButton);
 
         Button callButton = (Button) dialpad.findViewById(R.id.button_call);
-        callButton.setTypeface(Util.getIconMoonTypeFace(this));
         //hide call button when we're actually on a call
         callButton.setVisibility(View.GONE);
 
         startTimer();
+    }
+
+    private void setFont(Button button) {
+        button.setTypeface(Util.getIconMoonTypeFace(this));
     }
 
     /**
