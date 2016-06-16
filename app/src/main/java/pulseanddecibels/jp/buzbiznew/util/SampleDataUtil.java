@@ -136,11 +136,11 @@ public class SampleDataUtil {
         return new ArrayList<>();
     }
 
-    public static String getSampleTime() {
-        int hour = Utils.randInt(0, 23);
-        int minute = Utils.randInt(0, 59);
-        return String.format(Locale.JAPAN, "%s:%s", hour < 10 ? "0"+hour : hour, minute < 10 ? "0" + minute : minute);
-    }
+//    public static String getSampleTime() {
+//        int hour = Utils.randInt(0, 23);
+//        int minute = Utils.randInt(0, 59);
+//        return String.format(Locale.JAPAN, "%s:%s", hour < 10 ? "0"+hour : hour, minute < 10 ? "0" + minute : minute);
+//    }
 
     public static String getSampleDuration() {
         int min = Utils.randInt(0, 59);
@@ -152,10 +152,29 @@ public class SampleDataUtil {
         List<HistoryListItem> sampleHistory  = new ArrayList<>();
         List<ContactListItem> sampleContacts = getSampleContacts();
 
-        for(int i = 0; i < amount; i++) {
-            CallState direction = CallState.values()[Utils.randInt(0, CallState.values().length-1)];
-            HistoryListItem entry = new HistoryListItem(sampleContacts.get(i).getTelNumber(), getSampleTime(), direction);
-            sampleHistory.add(entry);
+        ArrayList<Long> randomDateTimes = new ArrayList<>();
+        //the different dates of the random datetimes for the list headers
+        Set<String> uniqueDates = new HashSet<>();
+
+        //generate random dates
+        for(int i=0; i<amount; i++) {
+            //between 5 days before today until now
+            long randomDateTimeMillis = DateUtils.getMillisecondsForDayOffset(Utils.randInt(0, 5), false);
+            randomDateTimes.add(randomDateTimeMillis);
+        }
+
+        Collections.sort(randomDateTimes);
+
+        for(long dateTime : randomDateTimes) {
+            String date = DateUtils.getDateFromMillis(dateTime);
+            //if we haven't inserted a header for this date, insert one now
+            if (!uniqueDates.contains(date)) {
+                uniqueDates.add(date);
+                //insert header
+                sampleHistory.add(new HistoryListItem(date, null, null, null, null));
+            }
+            CallState direction = CallState.values()[Utils.randInt(0, CallState.values().length - 1)];
+            sampleHistory.add(new HistoryListItem(null, DateUtils.getTimeFromMillis(dateTime), sampleContacts.get(Utils.randInt(0, sampleContacts.size() - 1)).getTelNumber(), direction, dateTime));
         }
 
         return sampleHistory;

@@ -49,17 +49,17 @@ public class ContactDetailsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ContactDetailsListItem listItem = (ContactDetailsListItem) getItem(position);
 
+        //because of multiple tabs, we cannot do the typical convertView.getTag() pattern
+
+        viewHolder = new ViewHolderItem();
         if(listItem.getDate() == null) {
             //time item
-            convertView = layoutInflater.inflate(R.layout.list_item_contact_details_time, parent, false);
-            viewHolder = new ViewHolderItem();
+            convertView = layoutInflater.inflate(R.layout.list_item_time, parent, false);
             viewHolder.time = (TextView) convertView.findViewById(R.id.contact_details_time);
             viewHolder.callState = (TextView) convertView.findViewById(R.id.contact_details_call_state);
             viewHolder.duration = (TextView) convertView.findViewById(R.id.contact_details_duration);
         } else {
-            //date item
             convertView = layoutInflater.inflate(R.layout.list_item_contact_details_date, parent, false);
-            viewHolder = new ViewHolderItem();
             viewHolder.date = (TextView) convertView.findViewById(R.id.contact_details_date);
         }
 

@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.CallState;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
+import pulseanddecibels.jp.buzbiznew.util.DateUtils;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
 import pulseanddecibels.jp.buzbiznew.util.Utils;
 
@@ -40,8 +42,12 @@ public class HistoryAdapter extends BaseAdapter {
         historyOut = new ArrayList<>();
         historyIn.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.IN_CONNECTED));
         historyIn.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.IN_MISSED));
-        historyOut = SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_CONNECTED);
-        historyOut = SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_MISSED);
+        Collections.sort(historyIn, getHistoryComparitor());
+        historyIn = getHistoryListWithDateHeaders(historyIn);
+        historyOut.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_CONNECTED));
+        historyOut.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_MISSED));
+        Collections.sort(historyOut, getHistoryComparitor());
+        historyOut = getHistoryListWithDateHeaders(historyOut);
     }
 
     @Override
@@ -81,40 +87,73 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        HistoryListItem historyListItem = (HistoryListItem) getItem(position);
+
+        //because of multiple tabs, we cannot do the typical convertView.getTag() pattern
+
+        viewHolder = new ViewHolderItem();
+        if(historyListItem.getDate() == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_history, parent, false);
-            viewHolder = new ViewHolderItem();
             viewHolder.direction = (TextView) convertView.findViewById(R.id.history_direction);
             viewHolder.name = (TextView) convertView.findViewById(R.id.history_name);
             viewHolder.time = (TextView) convertView.findViewById(R.id.history_time);
             viewHolder.telNumber = (TextView) convertView.findViewById(R.id.history_number);
-
-            convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolderItem) convertView.getTag();
+            convertView = layoutInflater.inflate(R.layout.list_item_contact_details_date, parent, false);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.contact_details_date);
         }
 
-        HistoryListItem historyListItem = (HistoryListItem) getItem(position);
-        viewHolder.direction.setTypeface(Utils.getIconMoonTypeFace(mContext));
-        viewHolder.direction.setText(historyListItem.getDirection().getImageText());
-        //lookup name from phone number
-        viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getTelNumber()).getNameKanji());
-        viewHolder.time.setText(historyListItem.getTime());
-        viewHolder.telNumber.setText(historyListItem.getTelNumber());
+        if(historyListItem.getDate() == null) {
+            viewHolder.direction.setTypeface(Utils.getIconMoonTypeFace(mContext));
+            viewHolder.direction.setText(historyListItem.getDirection().getImageText());
+            //lookup name from phone number
+            viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getTelNumber()).getNameKanji());
+            viewHolder.time.setText(historyListItem.getTime());
+            viewHolder.telNumber.setText(historyListItem.getTelNumber());
+        } else {
+            //date item
+            viewHolder.date.setText(historyListItem.getDate());
+        }
 
         return convertView;
     }
 
+    private List<HistoryListItem> getHistoryListWithDateHeaders(final List<HistoryListItem> listWithoutHeaders) {
+        List<HistoryListItem> listWithHeaders = new ArrayList<>();
+        String currentDateHeader = "";
+
+        for (HistoryListItem item : listWithoutHeaders) {
+            String currentDate = DateUtils.getDateFromMillis(item.getDateTimeMillis());
+            if(!currentDateHeader.equals(currentDate)) {
+                currentDateHeader = currentDate;
+                listWithHeaders.add(new HistoryListItem(currentDate, null, null, null, null));
+            }
+            listWithHeaders.add(item);
+        }
+
+        return listWithHeaders;
+    }
+
+    private Comparator<HistoryListItem> getHistoryComparitor() {
+        return new Comparator<HistoryListItem>() {
+            @Override
+            public int compare(HistoryListItem lhs, HistoryListItem rhs) {
+                if(lhs.getDateTimeMillis() < rhs.getDateTimeMillis()) {
+                    return -1;
+                } else if (lhs.getDateTimeMillis() > rhs.getDateTimeMillis()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+    }
+
     static class ViewHolderItem {
+        TextView date;
         TextView direction;
         TextView name;
         TextView time;
         TextView telNumber;
-    }
-
-    private class SortByTime implements Comparator<HistoryListItem> {
-        public int compare(HistoryListItem c1, HistoryListItem c2) {
-            return c1.getTime().compareTo(c2.getTime());
-        }
     }
 }
