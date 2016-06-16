@@ -5,18 +5,18 @@ package pulseanddecibels.jp.buzbiznew.model;
  * Copyright Pulse and Decibels 2016
  */
 public enum CallState {
-    IN_CONNECTED(android.R.drawable.sym_call_incoming),
-    OUT_CONNECTED(android.R.drawable.sym_call_outgoing),
-    IN_MISSED(android.R.drawable.stat_sys_download),
-    OUT_MISSED(android.R.drawable.stat_sys_upload);
+    IN_CONNECTED("k"),
+    OUT_CONNECTED("u"),
+    IN_MISSED("l"),
+    OUT_MISSED("t");
 
-    private int mImageResourceId;
+    private String mImageText; //icomoon font code
 
-    CallState(int imageResourceId) {
-        mImageResourceId = imageResourceId;
+    CallState(String imageText) {
+        mImageText = imageText;
     }
 
-    public int getImageResourceId() {
-        return mImageResourceId;
+    public String getImageText() {
+        return mImageText;
     }
 }

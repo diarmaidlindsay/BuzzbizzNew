@@ -21,6 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_toEndOf="@id/history_time"
         android:layout_toRightOf="@id/history_time"/>
 
@@ -31,7 +33,7 @@
         android:layout_toEndOf="@id/history_direction"
         android:layout_toRightOf="@id/history_direction"
         android:alpha=".20"
-        android:background="@drawable/white_round_edge"
+        android:background="@drawable/list_white_background"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.model.ContactDetailsListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
+import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/27.
@@ -54,7 +54,7 @@ public class ContactDetailsAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.list_item_contact_details_time, parent, false);
             viewHolder = new ViewHolderItem();
             viewHolder.time = (TextView) convertView.findViewById(R.id.contact_details_time);
-            viewHolder.callState = (ImageView) convertView.findViewById(R.id.contact_details_call_state);
+            viewHolder.callState = (TextView) convertView.findViewById(R.id.contact_details_call_state);
             viewHolder.duration = (TextView) convertView.findViewById(R.id.contact_details_duration);
         } else {
             //date item
@@ -66,7 +66,8 @@ public class ContactDetailsAdapter extends BaseAdapter {
         if(viewHolder.date == null) {
             //time item
             viewHolder.time.setText(listItem.getTime());
-            viewHolder.callState.setImageResource(listItem.getCallState().getImageResourceId());
+            viewHolder.callState.setTypeface(Util.getIconMoonTypeFace(mContext));
+            viewHolder.callState.setText(listItem.getCallState().getImageText());
             viewHolder.duration.setText(listItem.getDuration());
         } else {
             //date item
@@ -79,7 +80,7 @@ public class ContactDetailsAdapter extends BaseAdapter {
     static class ViewHolderItem {
         TextView date;
         TextView time;
-        ImageView callState;
+        TextView callState;
         TextView duration;
     }
 }
