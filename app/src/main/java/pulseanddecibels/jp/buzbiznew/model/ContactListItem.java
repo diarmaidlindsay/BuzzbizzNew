@@ -1,6 +1,6 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/13.
@@ -34,6 +34,6 @@ public class ContactListItem {
      */
     public TabTopContact getLineType() {
         //return random type for testing purposes.
-        return TabTopContact.values()[Util.randInt(0,TabTopContact.values().length-1)];
+        return TabTopContact.values()[Utils.randInt(0,TabTopContact.values().length-1)];
     }
 }

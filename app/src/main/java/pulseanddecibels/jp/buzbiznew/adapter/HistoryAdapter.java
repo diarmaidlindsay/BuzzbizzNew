@@ -17,7 +17,7 @@ import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.CallState;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
@@ -95,7 +95,7 @@ public class HistoryAdapter extends BaseAdapter {
         }
 
         HistoryListItem historyListItem = (HistoryListItem) getItem(position);
-        viewHolder.direction.setTypeface(Util.getIconMoonTypeFace(mContext));
+        viewHolder.direction.setTypeface(Utils.getIconMoonTypeFace(mContext));
         viewHolder.direction.setText(historyListItem.getDirection().getImageText());
         //lookup name from phone number
         viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getTelNumber()).getNameKanji());

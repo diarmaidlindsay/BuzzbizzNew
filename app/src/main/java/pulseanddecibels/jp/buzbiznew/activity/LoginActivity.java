@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import pulseanddecibels.jp.buzbiznew.R;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/06/08.
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
-        Util.goFullScreen(this);
+        Utils.goFullScreen(this);
         setContentView(R.layout.activity_login);
 
         editUserName = (EditText) findViewById(R.id.edit_username);

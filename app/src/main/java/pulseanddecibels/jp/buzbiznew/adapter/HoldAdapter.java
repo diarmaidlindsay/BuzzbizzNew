@@ -14,7 +14,7 @@ import java.util.List;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.model.HoldListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/05/18.
@@ -30,7 +30,7 @@ public class HoldAdapter extends BaseAdapter {
     public HoldAdapter(Context context) {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(context);
-        holdListItems = SampleDataUtil.getSampleHoldList(Util.randInt(1, 8));
+        holdListItems = SampleDataUtil.getSampleHoldList(Utils.randInt(1, 8));
     }
 
     @Override

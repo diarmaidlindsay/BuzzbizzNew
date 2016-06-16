@@ -89,7 +89,7 @@ public class SampleDataUtil {
             return new ArrayList<>(sampleContacts.values());
         }
         sampleContacts = new HashMap<>();
-        int randomOffset = Util.randInt(1, 500);
+        int randomOffset = Utils.randInt(1, 500);
         List<Integer> sampleNumbers = getUniqueSampleNumbers(CONTACTS_AMOUNT, CONTACTS_AMOUNT, CONTACTS_AMOUNT + 500 + randomOffset);
 
         if(BuildConfig.DEBUG && SAMPLE_CONTACTS_JP.length != SAMPLE_CONTACTS_JP_KANA.length) {
@@ -113,7 +113,7 @@ public class SampleDataUtil {
 
         if(!(max - min < amount)) {
             while(uniqueNumbers.size() < amount) {
-                uniqueNumbers.add(Util.randInt(min, max));
+                uniqueNumbers.add(Utils.randInt(min, max));
             }
         }
 
@@ -137,14 +137,14 @@ public class SampleDataUtil {
     }
 
     public static String getSampleTime() {
-        int hour = Util.randInt(0, 23);
-        int minute = Util.randInt(0, 59);
+        int hour = Utils.randInt(0, 23);
+        int minute = Utils.randInt(0, 59);
         return String.format(Locale.JAPAN, "%s:%s", hour < 10 ? "0"+hour : hour, minute < 10 ? "0" + minute : minute);
     }
 
     public static String getSampleDuration() {
-        int min = Util.randInt(0, 59);
-        int sec = Util.randInt(0, 59);
+        int min = Utils.randInt(0, 59);
+        int sec = Utils.randInt(0, 59);
         return String.format(Locale.JAPAN, "%sm%ss", min < 10 ? "0"+min : min, sec < 10 ? "0" + sec : sec);
     }
 
@@ -153,7 +153,7 @@ public class SampleDataUtil {
         List<ContactListItem> sampleContacts = getSampleContacts();
 
         for(int i = 0; i < amount; i++) {
-            CallState direction = CallState.values()[Util.randInt(0, CallState.values().length-1)];
+            CallState direction = CallState.values()[Utils.randInt(0, CallState.values().length-1)];
             HistoryListItem entry = new HistoryListItem(sampleContacts.get(i).getTelNumber(), getSampleTime(), direction);
             sampleHistory.add(entry);
         }
@@ -189,7 +189,7 @@ public class SampleDataUtil {
         //generate random dates
         for(int i=0; i<amount; i++) {
             //between 5 days before today until now
-            long randomDateTimeMillis = DateUtils.getMillisecondsForDayOffset(Util.randInt(0, 5), false);
+            long randomDateTimeMillis = DateUtils.getMillisecondsForDayOffset(Utils.randInt(0, 5), false);
             randomDateTimes.add(randomDateTimeMillis);
         }
 
@@ -206,7 +206,7 @@ public class SampleDataUtil {
 
             contactDetailsList.add(
                     new ContactDetailsListItem(
-                            null, DateUtils.getTimeFromMillis(dateTime), CallState.values()[Util.randInt(0, CallState.values().length-1)], getSampleDuration()));
+                            null, DateUtils.getTimeFromMillis(dateTime), CallState.values()[Utils.randInt(0, CallState.values().length-1)], getSampleDuration()));
         }
 
         return contactDetailsList;
@@ -217,8 +217,8 @@ public class SampleDataUtil {
         List<ContactListItem> sampleContacts = getSampleContacts();
 
         for(int i = 0; i < amount; i++) {
-            ContactListItem contactListItem = sampleContacts.get(Util.randInt(0, sampleContacts.size()-1));
-            HoldListItem holdListItem = new HoldListItem(contactListItem.getNameKanji(), contactListItem.getTelNumber(), Util.randInt(0, 7000));
+            ContactListItem contactListItem = sampleContacts.get(Utils.randInt(0, sampleContacts.size()-1));
+            HoldListItem holdListItem = new HoldListItem(contactListItem.getNameKanji(), contactListItem.getTelNumber(), Utils.randInt(0, 7000));
             holdListItems.add(holdListItem);
         }
 

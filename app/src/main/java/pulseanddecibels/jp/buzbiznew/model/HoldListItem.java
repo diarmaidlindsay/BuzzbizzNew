@@ -1,6 +1,6 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/05/17.
@@ -26,7 +26,7 @@ public class HoldListItem {
     }
 
     public String getHoldingSeconds() {
-        return Util.getTimeFromSecs(holdingSeconds);
+        return Utils.getTimeFromSecs(holdingSeconds);
     }
 
     public int getHoldImage() {

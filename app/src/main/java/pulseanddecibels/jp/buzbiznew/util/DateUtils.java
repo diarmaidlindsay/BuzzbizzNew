@@ -29,19 +29,19 @@ public class DateUtils {
     }
 
     private static DateTime setRandomTime(DateTime dateTime) {
-        int hour = Util.randInt(0, 23);
-        int minute = Util.randInt(0, 59);
+        int hour = Utils.randInt(0, 23);
+        int minute = Utils.randInt(0, 59);
         dateTime = dateTime.withHourOfDay(hour).withMinuteOfHour(minute);
         return dateTime;
     }
 
     public static String getDateFromMillis(long millis) {
         DateTime dateTime = new DateTime(millis, DateUtils.JAPAN_TIME_ZONE);
-        return String.format(Locale.JAPAN, "%d.%s.%s", dateTime.getYear(), Util.num2DigitString(dateTime.getMonthOfYear()), Util.num2DigitString(dateTime.getDayOfMonth()));
+        return String.format(Locale.JAPAN, "%d.%s.%s", dateTime.getYear(), Utils.num2DigitString(dateTime.getMonthOfYear()), Utils.num2DigitString(dateTime.getDayOfMonth()));
     }
 
     public static String getTimeFromMillis(long millis) {
         DateTime dateTime = new DateTime(millis, DateUtils.JAPAN_TIME_ZONE);
-        return String.format(Locale.JAPAN, "%s:%s", Util.num2DigitString(dateTime.getHourOfDay()), Util.num2DigitString(dateTime.getMinuteOfHour()));
+        return String.format(Locale.JAPAN, "%s:%s", Utils.num2DigitString(dateTime.getHourOfDay()), Utils.num2DigitString(dateTime.getMinuteOfHour()));
     }
 }

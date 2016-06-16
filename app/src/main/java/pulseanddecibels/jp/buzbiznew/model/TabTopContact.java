@@ -1,7 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
 import pulseanddecibels.jp.buzbiznew.R;
-import pulseanddecibels.jp.buzbiznew.activity.BuzbizApplication;
+import pulseanddecibels.jp.buzbiznew.activity.TularaApplication;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
@@ -38,6 +38,6 @@ public enum TabTopContact {
 
     @Override
     public String toString() {
-        return BuzbizApplication.getContext().getString(resourceId);
+        return TularaApplication.getContext().getString(resourceId);
     }
 }

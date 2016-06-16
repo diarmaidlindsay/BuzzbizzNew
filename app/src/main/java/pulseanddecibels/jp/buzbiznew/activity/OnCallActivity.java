@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import pulseanddecibels.jp.buzbiznew.R;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/05/10.
@@ -47,7 +47,7 @@ public class OnCallActivity extends Activity {
         timerField = (TextView) findViewById(R.id.call_timer);
 
         dialpad = (LinearLayout) findViewById(R.id.dialpad_content);
-        Util.initDialpad(dialpad);
+        Utils.initDialpad(dialpad);
         callButtons = (LinearLayout) findViewById(R.id.call_content);
 
         Button muteButton = (Button) callButtons.findViewById(R.id.button_mute);
@@ -86,7 +86,7 @@ public class OnCallActivity extends Activity {
     }
 
     private void setFont(Button button) {
-        button.setTypeface(Util.getIconMoonTypeFace(this));
+        button.setTypeface(Utils.getIconMoonTypeFace(this));
     }
 
     /**
@@ -139,8 +139,8 @@ public class OnCallActivity extends Activity {
         private long startTime;
         private long callTime;
         public CallTimer() {
-            shortTimeFormat.setTimeZone(Util.JAPAN_TIME_ZONE.toTimeZone());
-            longTimeFormat.setTimeZone(Util.JAPAN_TIME_ZONE.toTimeZone());
+            shortTimeFormat.setTimeZone(Utils.JAPAN_TIME_ZONE.toTimeZone());
+            longTimeFormat.setTimeZone(Utils.JAPAN_TIME_ZONE.toTimeZone());
         }
 
         public void start() {

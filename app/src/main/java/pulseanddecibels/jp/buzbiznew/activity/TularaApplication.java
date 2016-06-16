@@ -9,7 +9,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
  * Created by Diarmaid Lindsay on 2016/04/12.
  * Copyright Pulse and Decibels 2016
  */
-public class BuzbizApplication extends Application {
+public class TularaApplication extends Application {
 
     private static Context mContext;
 

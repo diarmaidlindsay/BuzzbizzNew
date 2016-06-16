@@ -12,7 +12,7 @@ import java.util.List;
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.model.ContactDetailsListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/27.
@@ -66,7 +66,7 @@ public class ContactDetailsAdapter extends BaseAdapter {
         if(viewHolder.date == null) {
             //time item
             viewHolder.time.setText(listItem.getTime());
-            viewHolder.callState.setTypeface(Util.getIconMoonTypeFace(mContext));
+            viewHolder.callState.setTypeface(Utils.getIconMoonTypeFace(mContext));
             viewHolder.callState.setText(listItem.getCallState().getImageText());
             viewHolder.duration.setText(listItem.getDuration());
         } else {

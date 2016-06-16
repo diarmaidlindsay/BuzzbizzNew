@@ -23,7 +23,7 @@ import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
 import pulseanddecibels.jp.buzbiznew.model.TabTopContact;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/11.
@@ -89,9 +89,9 @@ public class ContactsAdapter extends BaseAdapter implements SectionIndexer {
             char ch = name.charAt(0);
             String first;
 
-            if(Util.isKana(ch))
+            if(Utils.isKana(ch))
             {
-                first = Util.lookupKana(ch);
+                first = Utils.lookupKana(ch);
             } else {
                 first = name.substring(0, 1).toUpperCase(Locale.JAPAN);
             }

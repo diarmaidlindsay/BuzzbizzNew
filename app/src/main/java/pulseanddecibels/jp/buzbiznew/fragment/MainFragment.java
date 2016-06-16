@@ -15,7 +15,7 @@ import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
 import pulseanddecibels.jp.buzbiznew.adapter.ContactsFragmentPagerAdapter;
 import pulseanddecibels.jp.buzbiznew.adapter.HistoryFragmentPagerAdapter;
 import pulseanddecibels.jp.buzbiznew.model.TabBottom;
-import pulseanddecibels.jp.buzbiznew.util.Util;
+import pulseanddecibels.jp.buzbiznew.util.Utils;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/07.
@@ -65,9 +65,9 @@ public class MainFragment extends Fragment {
         if(mPage == TabBottom.DIALPAD.getIndex()) {
             stub.setLayoutResource(R.layout.content_dialpad);
             View inflated = stub.inflate();
-            Util.initDialpad(inflated);
+            Utils.initDialpad(inflated);
             Button callButton = (Button) inflated.findViewById(R.id.button_call);
-            callButton.setTypeface(Util.getIconMoonTypeFace(getFragmentActivity()));
+            callButton.setTypeface(Utils.getIconMoonTypeFace(getFragmentActivity()));
         }
 
         //if this page is the current selected tab

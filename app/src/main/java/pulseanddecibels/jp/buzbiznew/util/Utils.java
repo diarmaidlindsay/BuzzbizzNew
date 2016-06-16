@@ -14,13 +14,13 @@ import java.util.Locale;
 import java.util.Random;
 
 import pulseanddecibels.jp.buzbiznew.R;
-import pulseanddecibels.jp.buzbiznew.activity.BuzbizApplication;
+import pulseanddecibels.jp.buzbiznew.activity.TularaApplication;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
  * Copyright Pulse and Decibels 2016
  */
-public class Util {
+public class Utils {
     public static final DateTimeZone JAPAN_TIME_ZONE = DateTimeZone.forOffsetHours(9);
     private static Typeface icoMoonFont;
 
@@ -97,7 +97,7 @@ public class Util {
     public static void initDialpad(View dialpadLayout) {
         final TextView numberField = (TextView) dialpadLayout.findViewById(R.id.field_number_entry);
         final Button deleteButton = (Button) dialpadLayout.findViewById(R.id.button_delete);
-        deleteButton.setTypeface(Util.getIconMoonTypeFace(BuzbizApplication.getContext()));
+        deleteButton.setTypeface(Utils.getIconMoonTypeFace(TularaApplication.getContext()));
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
