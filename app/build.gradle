@@ -40,5 +40,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:percent:23.4.0'
     //Joda Time Android
-    compile 'net.danlew:android.joda:2.9.3'
+    compile 'net.danlew:android.joda:2.9.3.1'
 }

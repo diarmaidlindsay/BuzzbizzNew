@@ -6,16 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import pulseanddecibels.jp.buzbiznew.R;
 import pulseanddecibels.jp.buzbiznew.activity.MainActivity;
-import pulseanddecibels.jp.buzbiznew.model.CallDirection;
+import pulseanddecibels.jp.buzbiznew.model.CallState;
 import pulseanddecibels.jp.buzbiznew.model.HistoryListItem;
 import pulseanddecibels.jp.buzbiznew.util.SampleDataUtil;
+import pulseanddecibels.jp.buzbiznew.util.Util;
 
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
@@ -34,8 +36,12 @@ public class HistoryAdapter extends BaseAdapter {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(context);
         history = SampleDataUtil.getSampleHistoryItems(100);
-        historyIn = SampleDataUtil.getCurrentSampleHistoryItems(CallDirection.IN);
-        historyOut = SampleDataUtil.getCurrentSampleHistoryItems(CallDirection.OUT);
+        historyIn = new ArrayList<>();
+        historyOut = new ArrayList<>();
+        historyIn.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.IN_CONNECTED));
+        historyIn.addAll(SampleDataUtil.getCurrentSampleHistoryItems(CallState.IN_MISSED));
+        historyOut = SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_CONNECTED);
+        historyOut = SampleDataUtil.getCurrentSampleHistoryItems(CallState.OUT_MISSED);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class HistoryAdapter extends BaseAdapter {
         if(convertView == null) {
             convertView = layoutInflater.inflate(R.layout.list_item_history, parent, false);
             viewHolder = new ViewHolderItem();
-            viewHolder.icon = (ImageView) convertView.findViewById(R.id.history_direction);
+            viewHolder.direction = (TextView) convertView.findViewById(R.id.history_direction);
             viewHolder.name = (TextView) convertView.findViewById(R.id.history_name);
             viewHolder.time = (TextView) convertView.findViewById(R.id.history_time);
             viewHolder.telNumber = (TextView) convertView.findViewById(R.id.history_number);
@@ -89,7 +95,8 @@ public class HistoryAdapter extends BaseAdapter {
         }
 
         HistoryListItem historyListItem = (HistoryListItem) getItem(position);
-        viewHolder.icon.setImageResource(historyListItem.getDirectionImage());
+        viewHolder.direction.setTypeface(Util.getIconMoonTypeFace(mContext));
+        viewHolder.direction.setText(historyListItem.getDirection().getImageText());
         //lookup name from phone number
         viewHolder.name.setText(SampleDataUtil.getContactForNumber(historyListItem.getTelNumber()).getNameKanji());
         viewHolder.time.setText(historyListItem.getTime());
@@ -99,9 +106,15 @@ public class HistoryAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        ImageView icon;
+        TextView direction;
         TextView name;
         TextView time;
         TextView telNumber;
+    }
+
+    private class SortByTime implements Comparator<HistoryListItem> {
+        public int compare(HistoryListItem c1, HistoryListItem c2) {
+            return c1.getTime().compareTo(c2.getTime());
+        }
     }
 }

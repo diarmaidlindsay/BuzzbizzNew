@@ -1,6 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import pulseanddecibels.jp.buzbiznew.BuildConfig;
-import pulseanddecibels.jp.buzbiznew.model.CallDirection;
 import pulseanddecibels.jp.buzbiznew.model.CallState;
 import pulseanddecibels.jp.buzbiznew.model.ContactDetailsListItem;
 import pulseanddecibels.jp.buzbiznew.model.ContactListItem;
@@ -153,7 +153,7 @@ public class SampleDataUtil {
         List<ContactListItem> sampleContacts = getSampleContacts();
 
         for(int i = 0; i < amount; i++) {
-            CallDirection direction = Util.randInt(0, 1) == 0 ? CallDirection.IN : CallDirection.OUT;
+            CallState direction = CallState.values()[Util.randInt(0, CallState.values().length-1)];
             HistoryListItem entry = new HistoryListItem(sampleContacts.get(i).getTelNumber(), getSampleTime(), direction);
             sampleHistory.add(entry);
         }
@@ -168,7 +168,7 @@ public class SampleDataUtil {
         return sampleHistory;
     }
 
-    public static List<HistoryListItem> getCurrentSampleHistoryItems(CallDirection direction) {
+    public static List<HistoryListItem> getCurrentSampleHistoryItems(CallState direction) {
         List<HistoryListItem> items = new ArrayList<>();
 
         for(HistoryListItem item : getCurrentSampleHistoryItems()) {
@@ -180,18 +180,35 @@ public class SampleDataUtil {
         return items;
     }
 
-    public static List<ContactDetailsListItem> getSampleContactDetails(int telNum) {
+    public static List<ContactDetailsListItem> getSampleContactDetails(int amount) {
         List<ContactDetailsListItem> contactDetailsList = new ArrayList<>();
-        //too much of a pain in the ass to make random dates and sort them
-        final String[] dates = new String[] {"2016.04.22", "2016.04.19", "2016.04.18", "2016.04.16", "2016.04.10"};
-        for(String date : dates) {
-            contactDetailsList.add(new ContactDetailsListItem(date, null, null, null));
-            for(int i = 0; i < Util.randInt(1, 5); i++) {
-                contactDetailsList.add(
-                        new ContactDetailsListItem(
-                                null, getSampleTime(), CallState.values()[Util.randInt(0, CallState.values().length-1)], getSampleDuration()));
-            }
+        ArrayList<Long> randomDateTimes = new ArrayList<>();
+        //the different dates of the random datetimes for the list headers
+        Set<String> uniqueDates = new HashSet<>();
+
+        //generate random dates
+        for(int i=0; i<amount; i++) {
+            //between 5 days before today until now
+            long randomDateTimeMillis = DateUtils.getMillisecondsForDayOffset(Util.randInt(0, 5), false);
+            randomDateTimes.add(randomDateTimeMillis);
         }
+
+        Collections.sort(randomDateTimes);
+
+        for(long dateTime : randomDateTimes) {
+            String date = DateUtils.getDateFromMillis(dateTime);
+            //if we haven't inserted a header for this date, insert one now
+            if(!uniqueDates.contains(date)) {
+                uniqueDates.add(date);
+                //insert header
+                contactDetailsList.add(new ContactDetailsListItem(date, null, null, null));
+            }
+
+            contactDetailsList.add(
+                    new ContactDetailsListItem(
+                            null, DateUtils.getTimeFromMillis(dateTime), CallState.values()[Util.randInt(0, CallState.values().length-1)], getSampleDuration()));
+        }
+
         return contactDetailsList;
     }
 

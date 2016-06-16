@@ -27,7 +27,7 @@ public class ContactDetailsAdapter extends BaseAdapter {
     public ContactDetailsAdapter(Context context, String telNum) {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(context);
-        contactDetailsList = SampleDataUtil.getSampleContactDetails(Integer.parseInt(telNum));
+        contactDetailsList = SampleDataUtil.getSampleContactDetails(20);
     }
 
     @Override

@@ -16,15 +16,16 @@
         android:layout_centerVertical="true"
         android:padding="10dp"/>
 
-    <ImageView
+    <TextView
         android:id="@+id/history_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/WhiteText.Large"
         android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_toEndOf="@id/history_time"
-        android:layout_toRightOf="@id/history_time"/>
+        android:layout_toRightOf="@id/history_time"
+        android:background="@drawable/call_status_circle"
+        android:padding="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -157,4 +157,8 @@ public class Util {
     public static String lookupKana(String s) {
         return lookupKana(s.charAt(0));
     }
+
+    public static String num2DigitString(int number) {
+        return number < 10 ? "0" + number : "" + number;
+    }
 }

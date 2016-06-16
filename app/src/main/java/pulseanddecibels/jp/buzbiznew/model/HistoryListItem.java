@@ -1,7 +1,5 @@
 package pulseanddecibels.jp.buzbiznew.model;
 
-import pulseanddecibels.jp.buzbiznew.R;
-
 /**
  * Created by Diarmaid Lindsay on 2016/04/12.
  * Copyright Pulse and Decibels 2016
@@ -9,9 +7,9 @@ import pulseanddecibels.jp.buzbiznew.R;
 public class HistoryListItem {
     private String telNumber;
     private String time;
-    private CallDirection direction;
+    private CallState direction;
 
-    public HistoryListItem(String telNumber, String time, CallDirection direction) {
+    public HistoryListItem(String telNumber, String time, CallState direction) {
         this.telNumber = telNumber;
         this.time = time;
         this.direction = direction;
@@ -25,19 +23,8 @@ public class HistoryListItem {
         return time;
     }
 
-    public CallDirection getDirection() {
+    public CallState getDirection() {
         return direction;
-    }
-
-    public int getDirectionImage() {
-        switch (direction) {
-            case IN:
-                return R.drawable.history_in_fg;
-            case OUT:
-                return R.drawable.history_out_fg;
-        }
-
-        return android.R.drawable.presence_busy;
     }
 
     /**

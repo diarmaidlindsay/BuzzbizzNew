@@ -10,7 +10,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by Diarmaid Lindsay on 2016/04/19.
  * Copyright Pulse and Decibels 2016
  */
-public class UtilTest {
+public class UtilsTest {
 
     @Test
     /**
