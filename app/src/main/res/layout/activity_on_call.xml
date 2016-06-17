@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/background_light_blue_gradient"
-              android:orientation="vertical">
-    <TextView
-        android:id="@+id/call_name_kanji"
-        style="@style/WhiteText.Large"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:padding="5dp"
-        android:text="宮脇 一嘉"/>
-    <TextView
-        android:id="@+id/call_name_kana"
-        style="@style/WhiteText.Small"
-        android:layout_gravity="center_horizontal"
-        android:padding="5dp"
-        android:text="みやわき さん"/>
-    <TextView
-        android:id="@+id/call_number"
-        style="@style/WhiteText.Medium"
-        android:layout_gravity="center_horizontal"
-        android:padding="5dp"
-        android:text="080 1234 5678"/>
-    <TextView
-        android:id="@+id/call_timer"
-        style="@style/WhiteTextThin"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="00:00"
-        android:textSize="70sp"/>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_light_blue_gradient"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/call_name_kanji"
+            style="@style/WhiteText.Large"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:padding="5dp"
+            android:text="宮脇 一嘉"/>
+        <TextView
+            android:id="@+id/call_name_kana"
+            style="@style/WhiteText.Small"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="みやわき さん"/>
+        <TextView
+            android:id="@+id/call_number"
+            style="@style/WhiteText.Medium"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="080 1234 5678"/>
+        <TextView
+            android:id="@+id/call_timer"
+            style="@style/WhiteTextThin"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="00:00"
+            android:textSize="70sp"/>
 
-    <include android:id="@+id/call_content" layout="@layout/content_call_screen"/>
-    <include android:id="@+id/dialpad_content" layout="@layout/content_dialpad" android:visibility="gone"/>
-
-</LinearLayout>
+        <include android:id="@+id/call_content" layout="@layout/content_call_screen"/>
+    </LinearLayout>
+    <include android:id="@+id/dialpad_content" layout="@layout/content_dialpad"/>
+</FrameLayout>

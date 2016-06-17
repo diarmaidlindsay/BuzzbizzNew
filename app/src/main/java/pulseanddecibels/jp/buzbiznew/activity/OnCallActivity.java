@@ -1,6 +1,7 @@
 package pulseanddecibels.jp.buzbiznew.activity;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
@@ -47,6 +48,9 @@ public class OnCallActivity extends Activity {
         timerField = (TextView) findViewById(R.id.call_timer);
 
         dialpad = (LinearLayout) findViewById(R.id.dialpad_content);
+        //hide dialpad at first
+        dialpad.setVisibility(View.INVISIBLE);
+        dialpad.animate().translationY(dialpad.getHeight());
         Utils.initDialpad(dialpad);
         callButtons = (LinearLayout) findViewById(R.id.call_content);
 
@@ -94,11 +98,37 @@ public class OnCallActivity extends Activity {
      */
     public void toggleVisible() {
         if(dialpad.getVisibility() == View.VISIBLE) {
-            dialpad.setVisibility(View.GONE);
-            callButtons.setVisibility(View.VISIBLE);
+            Runnable endAnimation = new Runnable() {
+                @Override
+                public void run() {
+                    dialpad.setVisibility(View.INVISIBLE);
+                    callButtons.setVisibility(View.VISIBLE);
+                    callButtons.animate().translationY(0);
+                }
+            };
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                dialpad.animate().translationY(dialpad.getHeight()).withEndAction(endAnimation);
+            } else {
+                dialpad.animate().translationY(dialpad.getHeight());
+                endAnimation.run();
+            }
         } else {
-            callButtons.setVisibility(View.GONE);
-            dialpad.setVisibility(View.VISIBLE);
+            Runnable endAnimation = new Runnable() {
+                @Override
+                public void run() {
+                    dialpad.setVisibility(View.VISIBLE);
+                    callButtons.setVisibility(View.INVISIBLE);
+                    dialpad.animate().translationY(0);
+                }
+            };
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                callButtons.animate().translationY(callButtons.getHeight()).withEndAction(endAnimation);
+            } else {
+                callButtons.animate().translationY(callButtons.getHeight());
+                endAnimation.run();
+            }
         }
     }
 
