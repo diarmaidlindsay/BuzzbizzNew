@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/history_time"
@@ -16,23 +15,31 @@
         android:layout_centerVertical="true"
         android:padding="10dp"/>
 
-    <TextView
-        android:id="@+id/history_direction"
-        style="@style/WhiteText.Large"
+    <LinearLayout
+        android:id="@+id/direction_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_toEndOf="@id/history_time"
         android:layout_toRightOf="@id/history_time"
-        android:background="@drawable/call_status_circle"
-        android:padding="10dp"/>
+        android:background="@drawable/white_vertical_line"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/history_direction"
+            style="@style/WhiteText.Large"
+            android:background="@drawable/call_status_circle"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/history_direction"
-        android:layout_toRightOf="@id/history_direction"
+        android:layout_toEndOf="@id/direction_container"
+        android:layout_toRightOf="@id/direction_container"
         android:alpha=".20"
         android:background="@drawable/list_white_background"
         android:clickable="false"
@@ -47,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@id/history_direction"
-        android:layout_toRightOf="@id/history_direction"
+        android:layout_toEndOf="@id/direction_container"
+        android:layout_toRightOf="@id/direction_container"
         android:paddingBottom="5dp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
@@ -61,8 +68,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/history_name"
-        android:layout_toEndOf="@id/history_direction"
-        android:layout_toRightOf="@id/history_direction"
+        android:layout_toEndOf="@id/direction_container"
+        android:layout_toRightOf="@id/direction_container"
         android:paddingBottom="10dp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"

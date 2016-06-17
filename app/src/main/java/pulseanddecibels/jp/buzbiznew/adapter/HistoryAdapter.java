@@ -99,7 +99,7 @@ public class HistoryAdapter extends BaseAdapter {
             viewHolder.time = (TextView) convertView.findViewById(R.id.history_time);
             viewHolder.telNumber = (TextView) convertView.findViewById(R.id.history_number);
         } else {
-            convertView = layoutInflater.inflate(R.layout.list_item_contact_details_date, parent, false);
+            convertView = layoutInflater.inflate(R.layout.list_item_history_date, parent, false);
             viewHolder.date = (TextView) convertView.findViewById(R.id.contact_details_date);
         }
 

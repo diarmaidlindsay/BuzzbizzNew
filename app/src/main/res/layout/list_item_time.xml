@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/contact_details_call_state"
-            style="@style/WhiteText.Large"
-            android:layout_centerInParent="true"
-            android:background="@drawable/call_status_circle"
-            android:padding="10dp"/>
-        <TextView
-            android:id="@+id/contact_details_time"
-            style="@style/WhiteText.Small"
-            android:layout_toLeftOf="@id/contact_details_call_state"
-            android:layout_toStartOf="@id/contact_details_call_state"
-            android:padding="10dp"
-            android:text="00:00"/>
-        <TextView
-            android:id="@+id/contact_details_duration"
-            style="@style/WhiteText.Small"
-            android:layout_toEndOf="@id/contact_details_call_state"
-            android:layout_toRightOf="@id/contact_details_call_state"
-            android:padding="10dp"
-            android:text="01:11"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_vertical_line"
+                android:padding="5dp">
+
+    <TextView
+        android:id="@+id/contact_details_call_state"
+        style="@style/WhiteText.Large"
+        android:layout_centerInParent="true"
+        android:background="@drawable/call_status_circle"
+        android:padding="10dp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/contact_details_time"
+        style="@style/WhiteText.Small"
+        android:layout_toLeftOf="@id/contact_details_call_state"
+        android:layout_toStartOf="@id/contact_details_call_state"
+        android:padding="10dp"
+        android:text="00:00"/>
+
+    <TextView
+        android:id="@+id/contact_details_duration"
+        style="@style/WhiteText.Small"
+        android:layout_toEndOf="@id/contact_details_call_state"
+        android:layout_toRightOf="@id/contact_details_call_state"
+        android:padding="10dp"
+        android:text="01:11"/>
 
 </RelativeLayout>
